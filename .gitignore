@@ -1,0 +1,13 @@
+__pycache__/
+*.pyc
+*.jsonl
+*.err
+*.log
+.env
+.env.*
+*.pdf
+.DS_Store
+Thumbs.db
+# raw agent transcripts, third-party PDFs and private material stay out of this repository
+private/
+sources/
