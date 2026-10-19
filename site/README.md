@@ -15,9 +15,10 @@ npm run build     # static files in dist/
   there are copied from the repositories' own reports, which the comments name; update them together.
 - **Deployment.** `.github/workflows/site.yml` builds on every pull request touching `site/` and
   deploys to GitHub Pages on `main`. One-time setup in the repository: Settings → Pages → Source:
-  GitHub Actions. The site is then at <https://abdou-rgd.github.io/officina/>.
-- **Own domain.** Write the domain (for example `officina.example`) as the only line of `site/CNAME`
-  and set the same domain in Settings → Pages → Custom domain. A non-empty `CNAME` makes the build
-  serve from `/` instead of `/officina/`. Leave the file empty until the domain is bought.
+  GitHub Actions. The site is at <https://officina-dmpk.com/> (before the domain, it was at
+  <https://abdou-rgd.github.io/officina/>).
+- **Own domain.** `site/CNAME` holds the domain, `officina-dmpk.com`, as its only line; the same
+  domain is set in Settings → Pages → Custom domain. A non-empty `CNAME` makes the build serve from
+  `/` instead of `/officina/`; emptying it goes back to the project page.
 - **Logo.** `public/caladrius*.svg` is the Caladrius logo. `caladrius-mono.svg` is used as a CSS mask,
   so it takes the theme's accent colour.
