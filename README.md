@@ -21,7 +21,7 @@ Previous roadmap (reordered on 2026-10-09 after two independent reviews, `notes/
 - [abdou-rgd/caladrius](https://github.com/abdou-rgd/caladrius): the engine (Rust), with the agent contract `AGENTS.md`, the shared `board/`, the role definitions in `.claude/agents/`, the oracle and the generated conformance and validation documents.
 - [abdou-rgd/apothicaire](https://github.com/abdou-rgd/apothicaire): the local assistant (Python), its number gate, benchmark and decision-harness spike.
 - [abdou-rgd/optchat](https://github.com/abdou-rgd/optchat): the assistant's memory.
-- This repository, [abdou-rgd/officina](https://github.com/abdou-rgd/officina): the map above, the method, and the notes (independent reviews, session notes, a bibliography) in [`notes/`](notes/). It contains no code of the three components. Locally the four live side by side in one folder; only the three components are repositories of their own.
+- This repository, [abdou-rgd/officina](https://github.com/abdou-rgd/officina): the map above, the method, and the notes (independent reviews, session notes, a bibliography) in [`notes/`](notes/). It contains no code of the three components. The project's website is in [`site/`](site/) (static, deployed to GitHub Pages). Locally the four live side by side in one folder; only the three components are repositories of their own.
 
 ## How it is run
 
@@ -29,4 +29,4 @@ The code is written by AI coding agents under a written contract, a shared board
 
 ## License
 
-MIT OR Apache-2.0, at your option ([LICENSE-MIT](LICENSE-MIT), [LICENSE-APACHE](LICENSE-APACHE)), for the text in this repository. Each component carries its own license in its own repository.
+MIT OR Apache-2.0, at your option ([LICENSE-MIT](LICENSE-MIT), [LICENSE-APACHE](LICENSE-APACHE)), for the text in this repository. Each component carries its own license in its own repository. Exception: the two React Bits components in `site/src/vendor/react-bits/` are under their own license, MIT + Commons Clause (see that folder).
