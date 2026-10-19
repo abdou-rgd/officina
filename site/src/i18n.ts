@@ -149,6 +149,7 @@ const fr = {
     repos: 'Dépôts',
     licenses: 'Licences',
     licenseText: 'Code et textes sous MIT OR Apache-2.0, au choix. Composants d’animation React Bits sous leur propre licence (MIT + Commons Clause).',
+    credit: 'Logo de Caladrius dessiné par Amina.',
     privacy: 'Ce site n’utilise ni cookie, ni traceur, ni police externe.',
     disclaimer: 'Prototype de recherche, sans statut réglementaire. Ne pas utiliser pour un patient ou une décision réelle.'
   }
@@ -276,6 +277,7 @@ const en: Dict = {
     repos: 'Repositories',
     licenses: 'Licenses',
     licenseText: 'Code and text under MIT OR Apache-2.0, at your option. React Bits animation components under their own license (MIT + Commons Clause).',
+    credit: 'Caladrius logo drawn by Amina.',
     privacy: 'This site uses no cookies, no trackers and no external fonts.',
     disclaimer: 'Research prototype with no regulatory status. Not for use on a patient or for a real decision.'
   }

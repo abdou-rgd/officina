@@ -5,7 +5,9 @@ import Diagram from './Diagram';
 import { dict, links, positioning } from './i18n';
 import { useLang, useTheme, type ThemeChoice } from './prefs';
 
-const logoStyle = { '--logo-url': `url(${import.meta.env.BASE_URL}caladrius-mono.svg)` } as CSSProperties;
+// The bird is Caladrius's logo (drawn by Amina), so it marks the Caladrius card only;
+// Officina and Apothicaire get their own logos later.
+const caladriusLogo = { '--logo-url': `url(${import.meta.env.BASE_URL}caladrius-logo-small-mono.svg)` } as CSSProperties;
 
 // ShinyText parses its colours on a canvas, so it needs literal colours rather than CSS variables.
 const shine = {
@@ -27,7 +29,6 @@ export default function App() {
       <header className="topbar">
         <div className="wrap topbar__inner">
           <a className="brand" href="#top">
-            <span className="logo-mark" style={logoStyle} aria-hidden="true" />
             <span className="brand__name">Officina</span>
           </a>
           <nav className="nav" aria-label="Sections">
@@ -76,9 +77,6 @@ export default function App() {
               </div>
               <p className="note">{t.hero.note}</p>
             </div>
-            <div className="hero__mark" aria-hidden="true">
-              <span className="logo-mark logo-mark--hero" style={logoStyle} />
-            </div>
           </div>
           <div className="wrap">
             <ul className="facts">
@@ -106,6 +104,9 @@ export default function App() {
                   style={{ '--spotlight-card-surface': 'var(--surface)', '--spotlight-card-border': 'var(--line)' } as CSSProperties}
                 >
                   <h3>
+                    {item.key === 'caladrius' ? (
+                      <span className="logo-mark card__logo" style={caladriusLogo} aria-hidden="true" />
+                    ) : null}
                     {item.name} <span className="card__role">{item.role}</span>
                   </h3>
                   <p>{item.body}</p>
@@ -227,6 +228,7 @@ export default function App() {
           <div>
             <h2>{t.footer.licenses}</h2>
             <p>{t.footer.licenseText}</p>
+            <p>{t.footer.credit}</p>
             <p>{t.footer.privacy}</p>
           </div>
           <p className="footer__disclaimer">{t.footer.disclaimer}</p>

@@ -249,9 +249,8 @@ code {
   .hero {
     padding: 96px 0 56px;
   }
-  .hero__inner {
-    grid-template-columns: 1fr 300px;
-    gap: 56px;
+  .hero__text {
+    max-width: 900px;
   }
 }
 
@@ -307,23 +306,6 @@ h1 {
   background: var(--accent);
   border-color: var(--accent);
   color: var(--bg);
-}
-
-.hero__mark {
-  display: none;
-}
-
-@media (min-width: 880px) {
-  .hero__mark {
-    display: flex;
-    justify-content: center;
-  }
-}
-
-.logo-mark--hero {
-  width: 280px;
-  height: 280px;
-  opacity: 0.9;
 }
 
 .facts {
@@ -412,6 +394,13 @@ h1 {
 
 .card h3 {
   font-size: 1.45rem;
+}
+
+.card__logo {
+  width: 34px;
+  height: 34px;
+  margin-right: 10px;
+  vertical-align: -7px;
 }
 
 .card__role {
