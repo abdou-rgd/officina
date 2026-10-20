@@ -29,4 +29,4 @@ The code is written by AI coding agents under a written contract, a shared board
 
 ## License
 
-MIT OR Apache-2.0, at your option ([LICENSE-MIT](LICENSE-MIT), [LICENSE-APACHE](LICENSE-APACHE)), for the text in this repository. Each component carries its own license in its own repository. Exception: the two React Bits components in `site/src/vendor/react-bits/` are under their own license, MIT + Commons Clause (see that folder).
+MIT OR Apache-2.0, at your option ([LICENSE-MIT](LICENSE-MIT), [LICENSE-APACHE](LICENSE-APACHE)), for the text in this repository. Each component carries its own license in its own repository.
