@@ -425,7 +425,7 @@ const fr = {
     licenses: 'Licences',
     licenseText:
       'Code et textes sous MIT OR Apache-2.0, au choix. Composants d’animation React Bits sous leur propre licence (MIT + Commons Clause). Polices Newsreader et IBM Plex sous SIL Open Font License 1.1, servies par ce site.',
-    credit: 'Logo de Caladrius dessiné par Amina. Captures de l’application tirées du dépôt Caladrius.',
+    credit: 'Logos de Caladrius et d’Apothicaire dessinés par Amina. Captures de l’application tirées du dépôt Caladrius.',
     privacy: 'Ce site n’utilise ni cookie, ni traceur, ni requête vers un autre site.',
     disclaimer: 'Prototype de recherche, sans statut réglementaire. Ne pas utiliser pour un patient ou une décision réelle.'
   }
@@ -817,7 +817,7 @@ const en: Dict = {
     licenses: 'Licenses',
     licenseText:
       'Code and text under MIT OR Apache-2.0, at your option. React Bits animation components under their own license (MIT + Commons Clause). Newsreader and IBM Plex fonts under the SIL Open Font License 1.1, served by this site.',
-    credit: 'Caladrius logo drawn by Amina. Screenshots of the application taken from the Caladrius repository.',
+    credit: 'Caladrius and Apothicaire logos drawn by Amina. Screenshots of the application taken from the Caladrius repository.',
     privacy: 'This site uses no cookies, no trackers and no request to another site.',
     disclaimer: 'Research prototype with no regulatory status. Not for use on a patient or for a real decision.'
   }
