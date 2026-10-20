@@ -1,9 +1,8 @@
 # Officina website
 
-The project's public page: one static page, French by default with an English switch, light and dark
-themes following the system. Built with Vite, React and TypeScript, and two animation components from
-[React Bits](https://github.com/DavidHDev/react-bits) (`src/vendor/react-bits/`, under their own
-license, see that folder's README). No cookies, no trackers, no request to another site.
+The project's public page: one static monograph in four chapters, French by default with an English
+switch, light and dark themes following the system. Built with Vite, React and TypeScript, with zero
+third-party UI or animation libraries. No cookies, no trackers, no request to another site.
 
 ```bash
 npm ci
@@ -20,8 +19,7 @@ npm run build     # static files in dist/
   `model.simulate`, adds fixed-seed noise, runs `nca.run` and rewrites `specimen/profile.csv` and
   `src/specimen.json`: `python3 make_specimen.py /path/to/caladrius-cli`, from `specimen/`. The
   excerpts in `src/Doors.tsx` are copied from the same run; rerun and recopy them together.
-- **Components.** `Specimen.tsx` (the figure), `Architecture.tsx` (the diagram, as SVG on wide
-  screens and as a stacked list on phones), `GateFlow.tsx` (a question followed through the number
+- **Components.** `Specimen.tsx` (the figure), `GateFlow.tsx` (a question followed through the number
   gate), `Doors.tsx` (desktop, command line, MCP) and `motion.ts` (scroll reveals). Every animation
   is skipped when the system asks for reduced motion.
 - **Fonts.** Newsreader and IBM Plex Sans and Mono, from the Fontsource packages, under the SIL Open
@@ -35,9 +33,11 @@ npm run build     # static files in dist/
 - **Own domain.** `site/CNAME` holds the domain, `officina-dmpk.com`, as its only line; the same
   domain is set in Settings → Pages → Custom domain. A non-empty `CNAME` makes the build serve from
   `/` instead of `/officina/`; emptying it goes back to the project page.
-- **Logos.** `public/caladrius-logo-small-mono.svg` and `public/apothicaire-logo-small-mono.svg` are
-  the Caladrius and Apothicaire logos (both drawn by Amina), copied from `assets/logo/` in their own
-  repositories. Each marks its own tool only and is used as a CSS mask: the bird takes the theme's
-  accent green, the mortar keeps Apothicaire's ochre (`--apothicaire`, gold in the dark theme).
-  Officina has no logo yet: the header is text only and `public/favicon.svg` is a plain placeholder
-  monogram.
+- **Logos.** `public/caladrius-logo-mono.svg`, `public/caladrius-logo-small-mono.svg`,
+  `public/apothicaire-logo-mono.svg` and `public/apothicaire-logo-small-mono.svg` are the Caladrius
+  and Apothicaire emblems (both drawn by Amina), copied from `assets/logo/` in their own
+  repositories. The simplified `small` set is used in the hero; the full detailed engravings head
+  Chapters I and III. Each marks its own tool only and is used as a CSS mask: the bird takes the
+  theme's sage green (`--accent`), the mortar keeps Apothicaire's golden ochre (`--apothicaire`).
+  Officina has no logo yet: the header uses a bicolour two-dot mark (`Caladrius` green +
+  `Apothicaire` ochre) and `public/favicon.svg` is a placeholder monogram.

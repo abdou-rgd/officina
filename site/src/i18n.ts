@@ -42,43 +42,43 @@ export const positioning: Record<Lang, { lead: string; shine: string }> = {
 
 const fr = {
   nav: {
-    overview: 'L’ensemble',
-    caladrius: 'Caladrius',
-    why: 'Pourquoi Caladrius',
-    validation: 'Validation',
-    apothicaire: 'Apothicaire',
-    local: 'Modèle local',
-    roadmap: 'Feuille de route',
+    caladrius: 'I · Caladrius',
+    validation: 'II · Validation',
+    apothicaire: 'III · Apothicaire',
+    atelier: 'IV · L’Atelier',
     menu: 'Sommaire'
   },
   ui: {
     langSwitchLabel: 'Read this page in English',
     themeLabel: 'Thème',
     themes: { system: 'Thème du système', light: 'Thème clair', dark: 'Thème sombre' },
-    skip: 'Aller au contenu',
-    section: '§'
+    skip: 'Aller au contenu'
   },
   hero: {
-    eyebrow: 'Officina · chaîne d’outils DMPK locale et vérifiable',
+    eyebrow: 'Officina · laboratoire ouvert de pharmacocinétique et d’IA vérifiable',
+    intro:
+      'Officina (du latin : l’officine, l’atelier de l’apothicaire) est un banc d’essai né d’une question simple : à quelles conditions peut-on confier des nombres pharmacocinétiques à une petite IA locale ? Ici, les rôles ne se mélangent pas : l’instrument mesure, l’artisan explique, le registre garde la trace. La seule pièce capable de se tromper, le modèle de langage, est entourée de pièces qui ne le peuvent pas.',
     pair: [
       {
         key: 'caladrius',
-        tag: 'Aucune IA',
+        tag: 'Aucune IA · Instrument',
         name: 'Caladrius',
-        role: 'le moteur',
-        body: 'Il calcule : NCA, modèles, ajustement. Déterministe, vérifié, utilisable seul.'
+        role: 'le moteur de calcul',
+        body: 'Il mesure : analyse non compartimentale, modèles à 1 et 2 compartiments, ajustement pondéré. Un binaire Rust déterministe, vérifié sur 48 955 valeurs face à R, qui s’utilise seul.',
+        repoLabel: 'abdou-rgd/caladrius'
       },
       {
         key: 'apothicaire',
-        tag: 'IA locale',
+        tag: 'IA locale · Artisan',
         name: 'Apothicaire',
-        role: 'l’assistant',
-        body: 'Il explique : un modèle local qui ne calcule jamais et demande chaque nombre à Caladrius.'
+        role: 'l’assistant sous contrôle',
+        body: 'Il explique : un modèle ouvert sur une carte de 12 Go (Bonsai 2 27B) doté d’un registre en arbre (OptChat), qui demande chaque nombre à Caladrius sous la garde d’une porte en Python.',
+        repoLabel: 'abdou-rgd/apothicaire'
       }
     ],
-    ctaCode: 'Voir le code',
-    ctaWhy: 'Pourquoi un nouveau moteur ?',
-    note: 'Prototype de recherche. Données synthétiques uniquement.'
+    ctaCode: 'Voir les dépôts',
+    ctaStory: 'La démarche et l’auteur',
+    note: 'Prototype de recherche. Données synthétiques uniquement, sans statut réglementaire.'
   },
   specimen: {
     title: 'Un calcul de Caladrius',
@@ -97,103 +97,41 @@ const fr = {
     lzNote: (n: string, from: string, to: string, r2: string) =>
       `λz sur ${n} points, de ${from} à ${to} h, R² ajusté ${r2}`,
     caption:
-      'Modèle oral à un compartiment simulé par Caladrius, bruit proportionnel de 6 %, puis analyse non compartimentale par la commande nca.run, conventions par défaut (aires lin-up/log-down). Aucun nombre de cette figure n’est écrit à la main.',
+      'Modèle oral à un compartiment simulé par Caladrius, bruit proportionnel de 6 %, puis analyse non compartimentale par la commande nca.run (aires lin-up/log-down). Aucun nombre de cette figure n’est écrit à la main.',
     script: 'Le script qui la produit',
     plotLabel: 'Profil concentration-temps et résultats de l’analyse non compartimentale'
   },
-  facts: [
-    { value: '48 955 / 48 955', label: 'valeurs conformes aux références indépendantes en R' },
-    { value: '21', label: 'commandes à identifiant stable, pour les humains comme pour les agents' },
-    { value: '1 PC', label: 'une carte graphique de 12 Go pour l’assistant, aucun appel au cloud' },
-    { value: 'MIT / Apache-2.0', label: 'tout le code est ouvert, sous l’une ou l’autre licence' }
-  ],
-  overview: {
-    kicker: 'L’ensemble',
-    title: 'Trois outils, une règle',
-    intro:
-      'Le moteur calcule, l’assistant explique, la mémoire se souvient. La seule pièce qui peut se tromper, le modèle de langage, ne produit jamais un nombre : elle est entourée de pièces qui ne le peuvent pas.',
-    items: [
-      {
-        key: 'caladrius',
-        name: 'Caladrius',
-        role: 'le moteur, sans IA',
-        body: 'Moteur PK en Rust : analyse non compartimentale, modèles à un et deux compartiments, doses multiples, ajustement par moindres carrés pondérés. Une application de bureau, une ligne de commande et un serveur MCP appellent les mêmes commandes.',
-        meta: 'Rust · v0.2.0 · MIT OR Apache-2.0'
-      },
-      {
-        key: 'apothicaire',
-        name: 'Apothicaire',
-        role: 'l’assistant, IA locale',
-        body: 'Un modèle de langage ouvert (Bonsai\u00a02\u00a027B sur llama.cpp) lit la demande, appelle Caladrius et explique le résultat. Une porte déterministe rejette tout nombre qui ne vient ni d’un résultat d’outil ni de votre message.',
-        meta: 'Python · MIT OR Apache-2.0'
-      },
-      {
-        key: 'optchat',
-        name: 'OptChat',
-        role: 'la mémoire',
-        body: 'Mémoire de conversation sans fin : tout l’historique reste sur disque, le modèle voit les messages récents mot pour mot et les plus anciens fusionnés en lignes de résumé rangées en arbre. Rien n’est effacé. D’après une idée de Victor Taelin.',
-        meta: 'Python · MIT OR Apache-2.0'
-      }
-    ],
-    diagram: {
-      title: 'Comment les pièces s’articulent',
-      user: 'Vous',
-      userSub: 'question en français ou en anglais',
-      apothicaire: 'Apothicaire',
-      apoTag: 'IA locale',
-      model: 'Modèle de langage',
-      modelSub: 'route et explique, ne calcule pas',
-      memory: 'OptChat',
-      memorySub: 'mémoire',
-      gate: 'Porte des nombres',
-      gateSub: 'Python, sans IA',
-      caladrius: 'Caladrius',
-      calTag: 'aucune IA',
-      commands: '21 commandes',
-      commandsSub: 'bureau · ligne de commande · MCP',
-      engine: 'Moteur PK',
-      engineSub: 'NCA · modèles · ajustement',
-      oracle: 'Références R indépendantes',
-      oracleSub: 'PKNCA · nls · formes closes en 256 bits',
-      mcp: 'appels MCP',
-      results: 'nombres avec unités',
-      checked: '48 955 valeurs vérifiées',
-      answer: 'réponse vérifiée',
-      direct: 'ou directement, sans assistant : interface de bureau, ligne de commande',
-      legendDet: 'déterministe, sans IA',
-      legendAi: 'modèle de langage : peut se tromper, ne produit aucun nombre',
-      caption:
-        'Caladrius fonctionne seul. Apothicaire n’en est qu’un client, qui passe par les mêmes commandes que vous.'
-    },
-    repo: 'Dépôt'
-  },
   caladrius: {
-    kicker: 'Caladrius',
-    title: 'Un moteur de calcul. Aucune IA à l’intérieur.',
+    kicker: 'Chapitre I · Caladrius · L’instrument (aucune IA)',
+    title: 'Un moteur de calcul à livres ouverts. Aucune IA à l’intérieur.',
     intro:
-      'Caladrius fait les calculs standard de la pharmacocinétique, comme le ferait un package R : il ne devine rien, il calcule. Même entrée, même version, même nombre. Il s’utilise seul, sans Apothicaire.',
+      'Dans les bestiaires médiévaux, le caladrius est l’oiseau blanc qui se pose au chevet du malade et regarde le mal en face. Le moteur qui porte son nom exécute les calculs classiques de la pharmacocinétique, comme le ferait un package R : il ne devine rien, il calcule. Même entrée, même version, même nombre. Il s’utilise seul, sans Apothicaire.',
+    specTitle: 'Périmètre mathématique (v0.2.0)',
     spec: [
       {
         k: 'Analyse non compartimentale',
         v: 'Aires linéaires, lin-up/log-down ou mixtes ; λz choisi automatiquement ou à la main ; t½, AUMC, MRT, CL/F, Vz/F, Vss ; valeurs sous la limite de quantification et valeurs manquantes.'
       },
       {
-        k: 'Modèles',
+        k: 'Modèles compartimentaux',
         v: 'Six modèles à un compartiment et six à deux compartiments (trois paramétrisations), avec doses multiples et état d’équilibre.'
       },
       {
-        k: 'Ajustement',
-        v: 'Moindres carrés pondérés (cinq pondérations), erreurs-types, CV %, intervalles de confiance, corrélations, AIC, SBC et diagnostics.'
+        k: 'Ajustement pondéré',
+        v: 'Moindres carrés pondérés (cinq pondérations), erreurs-types, CV %, intervalles de confiance, matrices de corrélation, AIC, SBC et diagnostics.'
       },
       {
-        k: 'Données',
-        v: 'CSV à virgule décimale et point-virgule, unités lues dans les en-têtes et montrées avant l’import ; un fichier de projet garde données, analyses et historique des commandes.'
+        k: 'Données et traçabilité',
+        v: 'CSV à virgule décimale et point-virgule, unités lues dans les en-têtes et vérifiées avant l’import ; un fichier de projet unique conserve données, analyses et historique des commandes.'
       },
-      { k: 'Hors périmètre', v: 'Modélisation de population, bioéquivalence, PBPK, IVIVC.' }
+      {
+        k: 'Hors périmètre aujourd’hui',
+        v: 'Modélisation de population, bioéquivalence, PBPK, IVIVC. Pour ces domaines, R et les logiciels dédiés restent les bons outils.'
+      }
     ],
-    doorsTitle: 'Une API, trois portes',
+    doorsTitle: 'Une seule API, trois portes',
     doorsIntro:
-      'Les 21 commandes ont un identifiant stable et un schéma JSON pour leurs paramètres et leurs résultats. L’interface, le terminal et un agent appellent exactement les mêmes : ils obtiennent les mêmes nombres, avec leurs unités.',
+      'Les 21 commandes (nca.run, fit.run, model.simulate, analysis.compare…) ont un identifiant stable et un schéma JSON strict. L’application de bureau, le terminal et le serveur MCP appellent exactement les mêmes : un agent obtient les mêmes nombres qu’un humain, unités comprises.',
     doors: {
       desktop: 'Interface de bureau',
       cli: 'Ligne de commande',
@@ -211,81 +149,54 @@ const fr = {
       import: 'Aperçu d’import d’un CSV français, point-virgule et virgule décimale',
       fit: 'Résultats d’un ajustement : estimations, intervalles, résidus'
     },
-    screensMore: 'Toutes les captures de l’application',
+    screensMore: 'Toutes les captures',
     excerpt: 'extrait',
     cliCaption: 'La même analyse dans un terminal ; --format json donne le résultat complet.',
     mcpCaption:
-      'Serveur MCP sur l’entrée et la sortie standard, sans réseau. Chaque outil publie son inputSchema et son outputSchema ; un résultat est du JSON avec structuredContent.'
-  },
-  why: {
-    kicker: 'Pourquoi Caladrius',
-    title: 'Pourquoi un nouveau moteur, quand des packages R existent ?',
-    question:
-      'C’est la première question des pharmacométriciens, et elle est juste. Elle suppose souvent que Caladrius est « un outil de NCA avec IA ». Ce n’est pas le cas.',
-    callout: 'Caladrius ne contient aucune IA.',
-    calloutBody:
-      'C’est un logiciel de calcul classique, déterministe, qui s’utilise seul. L’IA d’Officina est ailleurs, dans Apothicaire, et elle n’a pas le droit de calculer.',
-    stance:
-      'Les packages R comme PKNCA restent des références : Caladrius est validé contre eux, valeur par valeur. Il ne cherche pas à les remplacer pour qui travaille en R. Il apporte ce qu’une bibliothèque ne vise pas.',
-    items: [
+      'Serveur MCP sur l’entrée et la sortie standard, sans réseau. Chaque outil publie son inputSchema et son outputSchema ; un résultat est du JSON avec structuredContent.',
+    whyTitle: 'Pourquoi un binaire Rust, quand des packages R existent ?',
+    whyIntro:
+      'C’est la première question des pharmacométriciens, et elle est juste. Les packages R comme PKNCA restent nos références : Caladrius est vérifié contre eux, valeur par valeur. Il ne cherche pas à remplacer R pour qui travaille en R ; il apporte ce qu’une bibliothèque de scripts ne vise pas.',
+    pillars: [
       {
-        title: 'Une application, pas une bibliothèque',
-        body: 'Une archive de 8 Mo pour Windows (12 Mo pour Linux) contient l’application de bureau, la ligne de commande et le serveur MCP : ni R ni packages à installer, aucun code à écrire. L’interface lit un CSV exporté d’un tableur français et montre comment elle l’a compris avant d’importer.',
-        proof: 'Version v0.2.0, binaires publiés',
+        n: '01',
+        title: 'Une application autonome de 8 Mo, pas une bibliothèque',
+        body: 'Une seule archive (8 Mo sous Windows, 12 Mo sous Linux) contient l’interface de bureau, le terminal et le serveur MCP : ni R ni packages à installer, aucune ligne de code à écrire pour lancer une analyse. Le même code compile en WebAssembly pour le navigateur.',
+        proof: 'Binaires v0.2.0 publiés',
         href: 'releases'
       },
       {
-        title: 'Une seule API, pour les humains et pour les agents',
-        body: '21 commandes à identifiant stable (nca.run, fit.run, model.simulate…), chacune avec un schéma JSON. L’interface, la ligne de commande et le serveur MCP passent par les mêmes : un agent obtient les mêmes nombres qu’un humain, unités comprises.',
-        proof: 'README, section MCP',
+        n: '02',
+        title: 'Un contrat typé qui interdit le bricolage',
+        body: 'Au lieu de laisser un modèle de langage écrire du code R à la volée, Caladrius expose 21 commandes fermées dont les entrées, les sorties et les unités sont fixées par schéma. L’humain dans sa fenêtre et l’agent par MCP passent par la même porte.',
+        proof: 'Documentation MCP',
         href: 'mcp'
       },
       {
-        title: 'NCA, modèles et ajustement dans le même moteur',
-        body: 'Analyse non compartimentale, douze modèles compartimentaux, doses multiples et état d’équilibre, ajustement pondéré avec toutes ses statistiques, simulation. Un seul format de projet, une seule logique d’unités.',
-        proof: 'docs/validation.md, section 1',
-        href: 'validation'
-      },
-      {
-        title: 'Déterministe, et solide face aux mauvaises données',
-        body: 'Même entrée et même version : même nombre. Le code ne contient aucun bloc unsafe et le linter interdit les plantages : un CSV mal formé ou une demi-vie non estimable donnent un message lisible, pas un crash.',
-        proof: 'README, section Why Rust',
+        n: '03',
+        title: 'Zéro plantage sur mauvaise donnée (≈ 9 ms sur Theoph)',
+        body: 'Le code ne contient aucun bloc unsafe et le linter interdit unwrap et panic! dans les briques de calcul : un CSV mal formé ou une demi-vie non estimable renvoie un motif explicite, jamais un crash. L’analyse complète des 12 sujets de Theoph prend environ 9 ms, démarrage compris.',
+        proof: 'Pourquoi Rust (README)',
         href: 'whyRust'
       },
       {
-        title: 'Une validation publiée, que vous pouvez rejouer',
-        body: '48 955 valeurs comparées à PKNCA, à R nls et nlsLM et à des formes closes calculées en 256 bits. Une commande régénère la table de conformité, et ses seuils, vérifiés en intégration continue, ne peuvent que monter. Conçu pour être validé par l’utilisateur, preuves fournies.',
-        proof: 'docs/validation.md',
-        href: 'validation'
-      },
-      {
-        title: 'Léger et rapide',
-        body: 'Du Rust compilé, sans environnement à démarrer. Les calculs sont petits ; ce qui compte est qu’il n’y a rien à charger avant eux. Le même code compile en WebAssembly, et l’intégration continue le vérifie.',
-        stat: '≈ 9 ms',
-        statLabel:
-          'l’analyse non compartimentale des 12 sujets du jeu Theoph, lancement du programme compris (médiane de 30 essais, conteneur Linux à 2,1 GHz)',
-        proof: 'Commande caladrius-cli nca.run, README section Usage',
-        href: 'usage'
-      },
-      {
-        title: 'Ouvert et modulaire',
-        body: 'Licence MIT ou Apache-2.0, au choix. Le moteur est fait de briques séparées (nca, models, fit, project) dont les dépendances sont vérifiées en intégration continue : chacune sert aussi bien dans un test, un terminal, un agent ou une fenêtre.',
-        proof: 'AGENTS.md, section 4',
+        n: '04',
+        title: 'Ouvert, modulaire et gouverné par tests',
+        body: 'Publié sous licence MIT ou Apache-2.0. Les briques numériques (nca, models, fit, project) sont isolées de l’interface et vérifiées en intégration continue : aucune règle mathématique ne vit cachée dans un bouton.',
+        proof: 'Contrat d’architecture (AGENTS.md)',
         href: 'layers'
       }
-    ],
-    limits:
-      'Ce que Caladrius ne fait pas : modélisation de population, bioéquivalence, PBPK. Pour cela, R et les logiciels dédiés restent les bons outils.'
+    ]
   },
   validation: {
-    kicker: 'Validation',
-    title: 'Chaque nombre recalculé ailleurs',
+    kicker: 'Chapitre II · Validation · Le standard de vérification',
+    title: 'Chaque nombre recalculé ailleurs, avant d’être cru.',
     intro:
-      'Les valeurs attendues ne viennent d’aucun logiciel commercial. Elles sont produites par des calculs indépendants en R, à partir de données publiques ou synthétiques, avec des scripts versionnés.',
-    headline: 'valeurs conformes',
-    headlineNote: '16 autres valeurs sont des différences de méthode documentées, ni validées ni comptées comme échecs.',
-    barLabel: 'Répartition des valeurs vérifiées par domaine',
-    cols: { domain: 'Domaine', oracle: 'Référence indépendante', values: 'Valeurs', cases: 'Cas', tol: 'Tolérance relative' },
+      'Aucune valeur attendue ne vient d’un logiciel commercial. Elles sont toutes produites par des calculs indépendants en R, à partir des équations des manuels et de données publiques ou synthétiques, avec des scripts versionnés que chacun peut rejouer.',
+    headline: 'valeurs conformes sur 490 cas de test',
+    headlineNote:
+      '16 autres valeurs sont des différences de méthode documentées (comme le choix d’arrondi ou de convention aux bornes), ni validées ni comptées comme échecs.',
+    cols: { domain: 'Domaine', oracle: 'Oracle indépendant en R', values: 'Valeurs', cases: 'Cas', tol: 'Tolérance relative' },
     rows: [
       { key: 'nca', domain: 'Analyse non compartimentale', short: 'NCA', oracle: 'PKNCA 0.12.1', values: 3744, cases: '20', tol: '1e-6' },
       {
@@ -297,31 +208,56 @@ const fr = {
         cases: '440',
         tol: '1e-12'
       },
-      { key: 'fit', domain: 'Ajustement pondéré', short: 'Ajustement', oracle: 'R nls et nlsLM, qui doivent s’accorder', values: 10500, cases: '30', tol: '1e-4' }
+      { key: 'fit', domain: 'Ajustement pondéré (WLS)', short: 'Ajustement', oracle: 'R nls et nlsLM, qui doivent s’accorder entre eux', values: 10500, cases: '30', tol: '1e-4' }
     ],
+    meaningTitle: 'Un sens étroit et mesurable',
     meaning:
-      '« Validé » a ici un sens étroit : un nombre produit par Caladrius est égal à un nombre calculé indépendamment, à une tolérance donnée, sur un cas donné. Les tolérances sont définies une seule fois, et les seuils de conformité vérifiés en intégration continue ne peuvent que monter.',
+      '« Validé » signifie ici qu’un nombre produit par Caladrius est égal à un nombre calculé indépendamment en R, à une tolérance fixée une seule fois, sur un cas précis. Une commande régénère la table de conformité, et ses seuils en intégration continue ne peuvent que monter.',
+    honestTitle: 'Quand l’oracle se trompe',
     honest:
-      'Une référence R s’est trompée une fois, et le moteur avait raison : l’écart a été documenté puis corrigé dans le script, pas absorbé dans une tolérance.',
-    linkReport: 'Rapport de validation',
-    linkConformance: 'Table de conformité'
+      'Une référence R s’est trompée une fois, et le moteur avait raison : l’écart a été diagnostiqué, documenté puis corrigé dans le script de référence, jamais absorbé en élargissant une tolérance.',
+    linkReport: 'Rapport de validation (docs/validation.md)',
+    linkConformance: 'Table de conformité (docs/conformance.md)'
   },
   apothicaire: {
-    kicker: 'Apothicaire',
-    title: 'Un assistant local qui ne calcule jamais',
+    kicker: 'Chapitre III · Apothicaire · L’artisan local sous contrôle',
+    title: 'Un assistant local qui ne calcule jamais.',
     intro:
-      'Apothicaire est l’autre moitié d’Officina : un modèle de langage ouvert, sur un seul PC, qui lit la demande, appelle Caladrius et explique le résultat. Entre le modèle et vous, une porte écrite en Python, sans apprentissage, vérifie chaque nombre.',
+      'Apothicaire est l’autre moitié du banc d’essai : un harnais local qui entoure un modèle de langage ouvert de trois garde-fous complémentaires pour qu’aucun chiffre inventé ou déformé ne parvienne à l’utilisateur.',
+    parts: [
+      {
+        tag: '01 · Le routeur (IA locale)',
+        title: 'Bonsai 2 27B sur llama.cpp',
+        body: 'Logé sur une seule carte graphique de 12 Go, le modèle lit votre question en français ou en anglais, choisit parmi les commandes MCP de Caladrius et explique ce que le moteur a renvoyé, sans jamais poser une opération lui-même.',
+        href: 'apothicaire',
+        linkLabel: 'abdou-rgd/apothicaire'
+      },
+      {
+        tag: '02 · La porte des nombres (Python, sans IA)',
+        title: 'Contrôle déterministe par gate.py',
+        body: 'Placée entre le modèle et l’écran, une porte écrite en Python pur inspecte chaque réponse et rejette tout nombre mesuré qui ne figure ni dans les sorties d’outils de Caladrius ni dans votre propre message.',
+        href: 'gate',
+        linkLabel: 'Lire gate.py'
+      },
+      {
+        tag: '03 · Le registre (OptChat)',
+        title: 'Mémoire en arbre où rien n’est effacé',
+        body: 'Une étude compte vite des dizaines de tours qui saturent 12 Go de mémoire vidéo. D’après une idée de Victor Taelin, OptChat conserve tout sur disque et montre au modèle les messages récents mot pour mot et les plus anciens fusionnés en arbre de résumés (8 faits sur 8 retrouvés après 32 tours).',
+        href: 'optchat',
+        linkLabel: 'abdou-rgd/optchat'
+      }
+    ],
     flow: {
       title: 'Une question, suivie jusqu’au bout',
       scenarioLabel: 'Choisir un cas',
       scenarios: { ok: 'Le nombre est vérifié', bad: 'Le nombre est rejeté' },
       replay: 'Rejouer',
-      steps: ['Question', 'Choix de l’outil', 'Calcul par Caladrius', 'Porte des nombres'],
+      steps: ['Question', 'Choix de l’outil (IA)', 'Calcul (Caladrius)', 'Porte des nombres (Python)'],
       ok: {
         question: 'Quelle est la demi-vie terminale de ce profil ?',
         tool: 'le modèle choisit l’analyse non compartimentale',
         draft: 'La demi-vie terminale est de [[hl]] (phase terminale de [[t1]] à [[t2]]).',
-        verdict: 'Réponse affichée.',
+        verdict: 'Réponse affichée : chaque nombre mesuré provient d’une sortie de Caladrius.',
         exempt: 'petit entier sans unité, exempté'
       },
       bad: {
@@ -329,105 +265,98 @@ const fr = {
         tool: 'le modèle relit le résultat de la même analyse',
         draft: 'CL/F vaut [[cl]], soit [[conv]].',
         conv: '62,5 mL/min',
-        rejected: 'absent de tout résultat d’outil : une conversion faite par le modèle',
-        verdict: 'Réponse retenue : une régénération est demandée, puis un avertissement visible si le nombre persiste.'
+        rejected: 'absent de tout résultat d’outil : une conversion d’unité faite de tête par le modèle',
+        verdict: 'Réponse retenue par gate.py : une régénération sans calcul mental est exigée.'
       },
       found: 'trouvé dans',
       caption:
-        'Exemple construit pour illustrer le mécanisme et vérifié avec gate.py ; les nombres viennent de Caladrius, sur le profil synthétique du haut de la page. Les petits entiers sans unité (0 à 20) et les dates sont exemptés ; tout le reste est vérifié.'
+        'Exemple réel vérifié avec gate.py sur le profil synthétique du haut de page. Les petits entiers sans unité (0 à 20) et les dates sont exemptés ; toute valeur mesurée est contrôlée.'
     },
-    benchTitle: 'Ce que mesure le benchmark',
+    benchTitle: 'Ce que mesure le benchmark (et la leçon des 76 nombres)',
+    benchStory:
+      'Sur 25 exercices synthétiques de 8 tours (200 questions), les premiers jets du modèle contenaient 76 nombres non tracés sur 932 : tous concentrés dans la seule question qui le tentait de soustraire deux résultats de tête. Dès que Caladrius a reçu une commande dédiée (analysis.compare), le compteur est tombé à 0 sur 897. On ne rend pas un modèle fiable en lui demandant d’être prudent, mais en lui retirant le calcul.',
     bench: [
-      { value: '0 / 897', label: 'nombre non tracé dans les premiers jets du modèle' },
-      { value: '193 / 200', label: 'tours corrects selon un second contrôle par oracle' },
-      { value: '141 / 141', label: 'appels d’outils valides' },
-      { value: '8 s', label: 'par tour, en moyenne, sur une carte de 12 Go' }
+      { value: '0 / 897', label: 'nombre non tracé dans les premiers jets (après ajout de analysis.compare)' },
+      { value: '193 / 200', label: 'tours corrects selon un second contrôle par oracle indépendant' },
+      { value: '141 / 141', label: 'appels d’outils MCP syntaxiquement et sémantiquement valides' },
+      { value: '8 s', label: 'par tour en moyenne, en local sur une carte graphique de 12 Go' }
     ],
-    benchSetup: '25 exercices synthétiques de 8 tours, Bonsai\u00a02\u00a027B sur llama.cpp sans fork, un seul passage.',
     benchCaveat:
-      'Ces chiffres sont mesurés sur le jeu qui a servi à mettre au point l’outil : ce sont des comptes, pas des garanties. La porte ne voit pas un bon nombre attaché au mauvais paramètre ; c’est le rôle du second contrôle, et un jeu de test gelé, hors échantillon, est la prochaine étape.',
-    benchLink: 'Rapport du benchmark',
-    gateLink: 'Lire gate.py'
-  },
-  local: {
-    kicker: 'Modèle local',
-    title: 'Pourquoi un modèle local, plutôt qu’un grand modèle par abonnement ?',
-    intro:
-      'Apothicaire fait tourner un modèle ouvert de taille raisonnable sur une seule carte graphique grand public. Ce n’est pas un pis-aller : pour ce travail, c’est le bon outil.',
-    items: [
+      'Réserve méthodologique : ces chiffres sont mesurés in-sample, sur le jeu de 25 exercices qui a servi à mettre au point l’outil. Ce sont des comptes, et non des garanties. La porte actuelle ne détecte pas un bon nombre attaché au mauvais paramètre ; un jeu de test gelé hors échantillon et la Porte v2 (rendu typé) répondent à cette limite.',
+    benchLink: 'Rapport complet du benchmark',
+    gateLink: 'Lire gate.py',
+    localTitle: 'Pourquoi un modèle local sur 12 Go, plutôt qu’un grand modèle par abonnement ?',
+    localIntro:
+      'Les grands modèles en ligne sont remarquables, et le code d’Officina est d’ailleurs écrit avec leur aide. Mais pour interroger des données d’étude et en expliquer les résultats, un modèle ouvert local bien entouré s’impose sur quatre terrains :',
+    localPillars: [
       {
         word: 'Confidentialité',
-        claim: 'Les données ne quittent pas la machine.',
-        body: 'Concentrations, doses, notes d’étude : rien n’est envoyé à un serveur tiers, il n’y a aucune clé d’API, et l’assistant fonctionne hors ligne. Pour des données d’étude confidentielles, c’est une condition de départ.'
+        claim: 'Les données ne quittent jamais la machine.',
+        body: 'Concentrations, doses, notes d’étude : rien n’est envoyé à un serveur tiers, aucune clé d’API n’est requise, et l’assistant fonctionne hors ligne. Pour des données pharmacocinétiques sensibles, c’est la condition de départ.'
       },
       {
         word: 'Souveraineté',
-        claim: 'Personne ne change le modèle à votre place.',
-        body: 'Les poids sont sur le disque et leur version est figée : ni retrait imposé, ni changement de prix ou de conditions, ni dépendance à un fournisseur. La même chaîne, avec le même modèle, pourra être rejouée dans deux ans.'
+        claim: 'Personne ne change le modèle dans votre dos.',
+        body: 'Les poids sont sur le disque et leur version est figée : ni retrait imposé, ni changement silencieux de comportement ou de tarif, ni dépendance à un fournisseur. La même chaîne pourra être rejouée à l’identique dans deux ans.'
       },
       {
         word: 'Proportion',
-        claim: 'Pas besoin d’un colosse.',
-        body: 'Le modèle ne calcule pas : il comprend la question, choisit l’outil et explique le résultat. Le calcul est fait par Caladrius et la vérification par la porte. Pour le reste, un modèle de 27 milliards de paramètres sur une carte de 12 Go suffit.'
-      },
-      {
-        word: 'Spécialisation',
-        claim: 'Un modèle adapté à la tâche.',
-        body: 'Un modèle moyen bien entouré (outils typés, mémoire, consignes courtes) vaut mieux ici qu’un généraliste immense. Ses poids étant ouverts, on peut l’affiner sur des exercices de PK, le quantifier, ou confier les questions fermées à un modèle de décision encore plus petit, piste à l’étude.'
+        claim: 'Pas besoin d’un colosse quand le moteur calcule.',
+        body: 'Le modèle ne fait aucune mathématique : il comprend la demande, choisit l’outil et explique le résultat. Le calcul revient à Caladrius et le contrôle à la porte Python. Pour ce rôle précis, 27 milliards de paramètres sur 12 Go suffisent.'
       },
       {
         word: 'Modularité',
-        claim: 'Le modèle est une pièce remplaçable.',
-        body: 'L’architecture ne dépend d’aucun modèle : tout modèle servi par llama.cpp qui sait appeler des outils peut remplacer Bonsai\u00a02\u00a027B, et le même benchmark dit s’il fait mieux. Le moteur et la porte ne changent pas.'
+        claim: 'Une pièce ouverte, adaptable et remplaçable.',
+        body: 'Les poids étant ouverts, on peut les quantifier, les affiner sur des exercices de PK ou déléguer le routage à un modèle encore plus léger. Tout modèle servi par llama.cpp peut remplacer Bonsai 2 27B demain et passer le même benchmark.'
       }
     ],
-    tableTitle: 'Deux façons de faire tourner un assistant',
-    cols: { aspect: '', cloud: 'Modèle par abonnement', local: 'Modèle local (Apothicaire)' },
-    rows: [
-      { aspect: 'Où vont les données', cloud: 'sur les serveurs du fournisseur', local: 'nulle part : elles restent sur la machine' },
-      { aspect: 'Qui choisit la version', cloud: 'le fournisseur', local: 'vous : poids sur disque, version figée' },
-      { aspect: 'Hors ligne', cloud: 'non', local: 'oui' },
-      { aspect: 'Coût', cloud: 'abonnement ou facturation à l’usage', local: 'le matériel, une fois' },
-      { aspect: 'Modifier le modèle', cloud: 'dans les limites de l’offre', local: 'oui : poids ouverts, affinage, quantification' },
-      { aspect: 'Matériel', cloud: 'les centres de données du fournisseur', local: 'un PC avec une carte graphique de 12 Go' }
+    localQuote:
+      'Pour router une question vers le bon calcul et en expliquer le résultat, ce n’est pas la taille du modèle qui limite la fiabilité : c’est la vérification.'
+  },
+  atelier: {
+    kicker: 'Chapitre IV · L’Atelier · Démarche, méthode et feuille de route',
+    title: 'Pourquoi j’ai bâti Officina, et comment l’atelier fonctionne.',
+    authorSubtitle: 'La démarche et l’auteur',
+    authorName: 'Abdallah Ragued',
+    authorRole: 'M2 Modélisation pharmacocinétique (Université Paris Cité) · M2 Health Data Science (Université Paris-Saclay)',
+    authorParagraphs: [
+      'Mon cheminement vers la pharmacométrie n’a pas suivi une ligne droite (une licence d’économie, un M1 de santé publique avec un stage de biostatistique à l’IHU ICAN de la Pitié-Salpêtrière, un M2 Health Data Science à Paris-Saclay, et aujourd’hui le M2 Modélisation pharmacocinétique à l’Université Paris Cité), mais il se lit après coup comme une seule question abordée sous trois angles : comment mesurer, modéliser et expliquer proprement l’effet d’un médicament.',
+      'Officina est né d’un double constat pendant mes cours. D’abord, les calculs standards de la pharmacocinétique y sont souvent exécutés dans un logiciel commercial qui affiche les résultats sans montrer son raisonnement : les reconstruire un par un à partir des manuels de référence (Gabrielsson & Weiner, Gibaldi & Perrier, Rowland & Tozer), avec un test pour chaque règle, était ma façon de m’assurer que je les comprenais jusqu’au bout. Ensuite, je voulais mettre à l’épreuve la question que je souhaite porter en thèse de doctorat, à la rencontre de la DMPK et de l’intelligence artificielle : peut-on confier des nombres pharmacocinétiques à une petite IA locale, et sous quelles garanties d’architecture ?',
+      'Je travaille seul sur Officina, en orchestrant des agents de programmation sous un contrat écrit (AGENTS.md) fondé sur la séparation des pouvoirs : l’agent qui code le moteur ne rédige jamais les oracles R, un relecteur indépendant traque les chemins de panique et les tolérances relâchées, et d’autres modèles sont mandatés à l’aveugle pour attaquer mes résultats. Le 10 octobre, une revue contradictoire à l’aveugle (74 requêtes difficiles) a réfuté un premier score de 99,9 % qui reposait sur la mémorisation des tournures d’entraînement : j’ai retiré le chiffre flatteur et publié l’échec, qui sert désormais de base au jeu de test gelé. Le 14 octobre, un audit indépendant a relancé les 2 559 tests et régénéré la table de conformité à l’identique.'
     ],
-    note:
-      'Les grands modèles par abonnement sont remarquables, et le code d’Officina est d’ailleurs écrit avec eux. Mais pour router une question vers le bon calcul et en expliquer le résultat, ce n’est pas la taille du modèle qui limite la fiabilité : c’est la vérification.'
-  },
-  method: {
-    kicker: 'Méthode',
-    title: 'Comment le code est écrit',
-    body: 'Le code est écrit par des agents IA sous un contrat écrit, avec un tableau de petites cartes, des rôles séparés pour qui écrit un nombre, qui le teste et qui relit, et des revues indépendantes par d’autres modèles. L’auteur répond aux questions et décide de ce qui est publié. Un audit externe du 14 octobre a relancé 2 559 tests et régénéré la table de conformité à l’identique.',
-    link: 'Lire METHOD.md'
-  },
-  roadmap: {
-    kicker: 'Feuille de route',
-    title: 'Ce qui vient ensuite',
-    items: [
-      { title: 'Jeu de test gelé', body: 'Des exercices hors échantillon, fixés et pré-enregistrés avant d’être lancés, pour mesurer l’assistant honnêtement.' },
+    methodLink: 'Lire le contrat de méthode (METHOD.md)',
+    githubLink: 'Profil GitHub (abdou-rgd)',
+    roadmapSubtitle: 'Ce qui vient ensuite : une ambition mesurée',
+    roadmapIntro:
+      'Officina ne cherche pas à imiter l’étendue d’un progiciel industriel. Son ambition est d’établir un standard ouvert et reproductible sur quatre chantiers :',
+    roadmap: [
       {
-        title: 'Porte des nombres v2',
-        body: 'Un rendu typé : le modèle cite une référence au résultat d’un outil, et un code déterministe écrit la valeur du moteur, son signe, son unité et le nom de la grandeur.'
+        title: '1 · Jeu de test gelé et pré-enregistré',
+        body: 'Évaluer Apothicaire hors échantillon sur des requêtes aveugles figées avant l’exécution, avec un barème fixe pour comparer honnêtement plusieurs petits modèles locaux (27B, 9B et micro-modèles de décision).'
       },
-      { title: 'Kit de validation', body: 'Jeux de référence, tolérances et rapport d’exécution régénérables, avec une vérification de dérive en intégration continue.' },
-      { title: 'PAGE 2027', body: 'Un résumé sur la comparaison indépendante d’outils NCA ouverts.' }
+      {
+        title: '2 · Porte des nombres v2 (rendu typé)',
+        body: 'Au lieu d’écrire un chiffre en texte libre, le modèle émet une référence ({{call.param}}) et un code déterministe injecte la valeur, son signe, son unité et le nom de la grandeur directement depuis le schéma MCP de Caladrius.'
+      },
+      {
+        title: '3 · Kit de validation ouvert & PAGE 2027',
+        body: 'Publier un kit de validation régénérable (jeux de référence, tolérances, contrôle de dérive en intégration continue, structuré sur le modèle des attentes de traçabilité ICH M15 et M13A) et soumettre à PAGE 2027 la première comparaison indépendante des outils NCA ouverts.'
+      },
+      {
+        title: '4 · Caladrius dans le navigateur & extension PK/PD',
+        body: 'Mettre en ligne la version WebAssembly du moteur pour que les étudiants et chercheurs vérifient un profil sans rien installer, avant d’élargir pas à pas le périmètre mathématique.'
+      }
     ]
   },
-  about: {
-    kicker: 'Auteur',
-    title: 'Qui porte le projet',
-    name: 'Abdallah Ragued',
-    body: 'Étudiant en M2 Modélisation pharmacocinétique à l’Université Paris Cité, après un M2 Health Data Science à l’Université Paris-Saclay. Officina est le portfolio d’une thèse visée entre DMPK et intelligence artificielle. Le nom vient du latin : l’atelier de l’apothicaire.',
-    github: 'GitHub : abdou-rgd'
-  },
   footer: {
-    repos: 'Dépôts',
-    licenses: 'Licences',
+    repos: 'Les quatre dépôts',
+    licenses: 'Licences et crédits',
     licenseText:
-      'Code et textes sous MIT OR Apache-2.0, au choix. Composants d’animation React Bits sous leur propre licence (MIT + Commons Clause). Polices Newsreader et IBM Plex sous SIL Open Font License 1.1, servies par ce site.',
-    credit: 'Logos de Caladrius et d’Apothicaire dessinés par Amina. Captures de l’application tirées du dépôt Caladrius.',
-    privacy: 'Ce site n’utilise ni cookie, ni traceur, ni requête vers un autre site.',
-    disclaimer: 'Prototype de recherche, sans statut réglementaire. Ne pas utiliser pour un patient ou une décision réelle.'
+      'Code et textes publiés sous double licence MIT OR Apache-2.0, au choix. Polices Newsreader et IBM Plex sous SIL Open Font License 1.1, hébergées directement par ce site.',
+    credit:
+      'Les emblèmes de Caladrius (l’oiseau) et d’Apothicaire (le mortier) ont été dessinés à la main par Amina, une talentueuse amie, puis vectorisés pour l’atelier.',
+    privacy: 'Ce site n’utilise ni cookie, ni traceur, ni requête vers un serveur tiers.',
+    disclaimer: 'Prototype de recherche, sans statut réglementaire. Ne jamais utiliser pour un patient ou une décision clinique.'
   }
 };
 
@@ -435,43 +364,43 @@ export type Dict = typeof fr;
 
 const en: Dict = {
   nav: {
-    overview: 'Overview',
-    caladrius: 'Caladrius',
-    why: 'Why Caladrius',
-    validation: 'Validation',
-    apothicaire: 'Apothicaire',
-    local: 'Local model',
-    roadmap: 'Roadmap',
+    caladrius: 'I · Caladrius',
+    validation: 'II · Validation',
+    apothicaire: 'III · Apothicaire',
+    atelier: 'IV · The Workshop',
     menu: 'Contents'
   },
   ui: {
     langSwitchLabel: 'Lire cette page en français',
     themeLabel: 'Theme',
     themes: { system: 'System theme', light: 'Light theme', dark: 'Dark theme' },
-    skip: 'Skip to content',
-    section: '§'
+    skip: 'Skip to content'
   },
   hero: {
-    eyebrow: 'Officina · a local, verifiable DMPK toolchain',
+    eyebrow: 'Officina · an open workbench for pharmacokinetics and verifiable AI',
+    intro:
+      'Officina (Latin for the apothecary’s workshop) is an open research workbench built around one question: under what architectural guarantees can a small local AI be trusted with pharmacokinetic numbers? Here, roles never blur: the instrument measures, the artisan explains, the ledger remembers. The one part that can be wrong, the language model, is surrounded by parts that cannot.',
     pair: [
       {
         key: 'caladrius',
-        tag: 'No AI',
+        tag: 'No AI · The Instrument',
         name: 'Caladrius',
-        role: 'the engine',
-        body: 'It computes: NCA, models, fitting. Deterministic, verified, usable on its own.'
+        role: 'the calculation engine',
+        body: 'It measures: non-compartmental analysis, 1- and 2-compartment models, weighted fitting. A deterministic Rust binary checked across 48,955 values against R, usable on its own.',
+        repoLabel: 'abdou-rgd/caladrius'
       },
       {
         key: 'apothicaire',
-        tag: 'Local AI',
+        tag: 'Local AI · The Artisan',
         name: 'Apothicaire',
-        role: 'the assistant',
-        body: 'It explains: a local model that never computes and asks Caladrius for every number.'
+        role: 'the checked assistant',
+        body: 'It explains: an open model on a single 12 GB card (Bonsai 2 27B) with a tree-structured ledger (OptChat), asking Caladrius for every number behind a plain Python gate.',
+        repoLabel: 'abdou-rgd/apothicaire'
       }
     ],
-    ctaCode: 'See the code',
-    ctaWhy: 'Why a new engine?',
-    note: 'Research prototype. Synthetic data only.'
+    ctaCode: 'Browse the repositories',
+    ctaStory: 'The approach and the author',
+    note: 'Research prototype. Synthetic data only, with no regulatory status.'
   },
   specimen: {
     title: 'A calculation by Caladrius',
@@ -494,98 +423,37 @@ const en: Dict = {
     script: 'The script that makes it',
     plotLabel: 'Concentration-time profile and results of the non-compartmental analysis'
   },
-  facts: [
-    { value: '48,955 / 48,955', label: 'values matching independent references in R' },
-    { value: '21', label: 'commands with stable ids, for people and agents alike' },
-    { value: '1 PC', label: 'one 12 GB graphics card for the assistant, no cloud call' },
-    { value: 'MIT / Apache-2.0', label: 'all the code is open, under either license' }
-  ],
-  overview: {
-    kicker: 'Overview',
-    title: 'Three tools, one rule',
-    intro:
-      'The engine computes, the assistant explains, the memory remembers. The one part that can be wrong, the language model, never produces a number: it is surrounded by parts that cannot be wrong that way.',
-    items: [
-      {
-        key: 'caladrius',
-        name: 'Caladrius',
-        role: 'the engine, no AI',
-        body: 'A PK engine in Rust: non-compartmental analysis, one- and two-compartment models, multiple dosing, weighted least-squares fitting. A desktop application, a command line and an MCP server call the same commands.',
-        meta: 'Rust · v0.2.0 · MIT OR Apache-2.0'
-      },
-      {
-        key: 'apothicaire',
-        name: 'Apothicaire',
-        role: 'the assistant, local AI',
-        body: 'An open language model (Bonsai\u00a02\u00a027B on llama.cpp) reads the request, calls Caladrius and explains the result. A deterministic gate rejects any number that comes neither from a tool result nor from your message.',
-        meta: 'Python · MIT OR Apache-2.0'
-      },
-      {
-        key: 'optchat',
-        name: 'OptChat',
-        role: 'the memory',
-        body: 'Endless chat memory: the whole history stays on disk, and the model sees recent messages verbatim and older ones merged into summary lines arranged as a tree. Nothing is deleted. After an idea by Victor Taelin.',
-        meta: 'Python · MIT OR Apache-2.0'
-      }
-    ],
-    diagram: {
-      title: 'How the pieces fit together',
-      user: 'You',
-      userSub: 'a question in French or English',
-      apothicaire: 'Apothicaire',
-      apoTag: 'local AI',
-      model: 'Language model',
-      modelSub: 'routes and explains, does not compute',
-      memory: 'OptChat',
-      memorySub: 'memory',
-      gate: 'Number gate',
-      gateSub: 'Python, no AI',
-      caladrius: 'Caladrius',
-      calTag: 'no AI',
-      commands: '21 commands',
-      commandsSub: 'desktop · command line · MCP',
-      engine: 'PK engine',
-      engineSub: 'NCA · models · fitting',
-      oracle: 'Independent R references',
-      oracleSub: 'PKNCA · nls · 256-bit closed forms',
-      mcp: 'MCP calls',
-      results: 'numbers with units',
-      checked: '48,955 values checked',
-      answer: 'checked answer',
-      direct: 'or directly, with no assistant: desktop interface, command line',
-      legendDet: 'deterministic, no AI',
-      legendAi: 'language model: can be wrong, produces no number',
-      caption: 'Caladrius works on its own. Apothicaire is just one of its clients, using the same commands you do.'
-    },
-    repo: 'Repository'
-  },
   caladrius: {
-    kicker: 'Caladrius',
-    title: 'A calculation engine. No AI inside.',
+    kicker: 'Chapter I · Caladrius · The instrument (no AI)',
+    title: 'An open-book calculation engine. No AI inside.',
     intro:
-      'Caladrius does the standard calculations of pharmacokinetics, as an R package would: it guesses nothing, it computes. Same input, same version, same number. It is used on its own, without Apothicaire.',
+      'In medieval bestiaries, the caladrius is the white bird that sits by the patient’s bed and looks the illness in the eye. The engine that bears its name performs the standard calculations of pharmacokinetics, just as an R package would: it guesses nothing, it computes. Same input, same version, same number. It works on its own, without Apothicaire.',
+    specTitle: 'Mathematical scope (v0.2.0)',
     spec: [
       {
         k: 'Non-compartmental analysis',
         v: 'Linear, lin-up/log-down or mixed areas; λz chosen automatically or by hand; t½, AUMC, MRT, CL/F, Vz/F, Vss; values below the limit of quantification and missing values.'
       },
       {
-        k: 'Models',
+        k: 'Compartmental models',
         v: 'Six one-compartment and six two-compartment models (three parameterisations), with multiple dosing and steady state.'
       },
       {
-        k: 'Fitting',
-        v: 'Weighted least squares (five weightings), standard errors, CV%, confidence intervals, correlations, AIC, SBC and diagnostics.'
+        k: 'Weighted fitting',
+        v: 'Weighted least squares (five weightings), standard errors, CV%, confidence intervals, correlation matrices, AIC, SBC and diagnostics.'
       },
       {
-        k: 'Data',
-        v: 'CSV files with decimal commas and semicolons, units read from the headers and shown before import; one project file keeps data, analyses and the history of commands.'
+        k: 'Data and traceability',
+        v: 'CSV files with decimal commas and semicolons, units read from headers and checked before import; a single project file keeps data, analyses and the command history.'
       },
-      { k: 'Out of scope', v: 'Population modelling, bioequivalence, PBPK, IVIVC.' }
+      {
+        k: 'Out of scope today',
+        v: 'Population modelling, bioequivalence, PBPK, IVIVC. For those domains, R and dedicated software remain the right tools.'
+      }
     ],
     doorsTitle: 'One API, three doors',
     doorsIntro:
-      'The 21 commands have a stable id and a JSON schema for their parameters and results. The interface, the terminal and an agent call exactly the same ones: they get the same numbers, with their units.',
+      'All 21 commands (nca.run, fit.run, model.simulate, analysis.compare…) have a stable id and a strict JSON schema. The desktop window, the terminal and the MCP server call the exact same functions: an agent gets the same numbers as a person, units included.',
     doors: {
       desktop: 'Desktop interface',
       cli: 'Command line',
@@ -603,81 +471,54 @@ const en: Dict = {
       import: 'Import preview of a French CSV, with semicolons and decimal commas',
       fit: 'Fit results: estimates, intervals, residuals'
     },
-    screensMore: 'All screenshots of the application',
+    screensMore: 'All screenshots',
     excerpt: 'excerpt',
     cliCaption: 'The same analysis in a terminal; --format json gives the full result.',
     mcpCaption:
-      'An MCP server on standard input and output, with no network. Every tool publishes its inputSchema and outputSchema; a result is JSON with structuredContent.'
-  },
-  why: {
-    kicker: 'Why Caladrius',
-    title: 'Why a new engine, when R packages exist?',
-    question:
-      'It is the first question pharmacometricians ask, and a fair one. It often assumes that Caladrius is “an NCA tool with AI”. It is not.',
-    callout: 'Caladrius contains no AI.',
-    calloutBody:
-      'It is ordinary, deterministic calculation software, used on its own. Officina’s AI lives elsewhere, in Apothicaire, and it is not allowed to compute.',
-    stance:
-      'R packages such as PKNCA remain references: Caladrius is validated against them, value by value. It does not try to replace them for people who work in R. It brings what a library does not aim for.',
-    items: [
+      'An MCP server on standard input and output, with no network. Every tool publishes its inputSchema and outputSchema; a result is JSON with structuredContent.',
+    whyTitle: 'Why a Rust binary, when R packages exist?',
+    whyIntro:
+      'It is the first question pharmacometricians ask, and a fair one. R packages such as PKNCA remain our references: Caladrius is checked against them, value by value. It does not try to replace R for people who work in R; it brings what a script library does not aim for.',
+    pillars: [
       {
-        title: 'An application, not a library',
-        body: 'An 8 MB archive for Windows (12 MB for Linux) holds the desktop application, the command line and the MCP server: no R or packages to install, no code to write. The interface reads a CSV exported from a French spreadsheet and shows how it understood it before importing.',
-        proof: 'Release v0.2.0, published binaries',
+        n: '01',
+        title: 'An 8 MB self-contained application, not a library',
+        body: 'One archive (8 MB on Windows, 12 MB on Linux) holds the desktop application, the command line and the MCP server: no R runtime or packages to install, no code to write before running an analysis. The same code compiles to WebAssembly.',
+        proof: 'Published v0.2.0 binaries',
         href: 'releases'
       },
       {
-        title: 'One API, for people and for agents',
-        body: '21 commands with stable ids (nca.run, fit.run, model.simulate…), each with a JSON schema. The interface, the command line and the MCP server go through the same ones: an agent gets the same numbers as a person, units included.',
-        proof: 'README, section MCP',
+        n: '02',
+        title: 'A typed contract that forbids ad-hoc scripting',
+        body: 'Rather than letting a language model write R scripts on the fly, Caladrius exposes 21 closed commands whose inputs, outputs and units are fixed by schema. A person in the window and an agent over MCP use the same door.',
+        proof: 'MCP documentation',
         href: 'mcp'
       },
       {
-        title: 'NCA, models and fitting in one engine',
-        body: 'Non-compartmental analysis, twelve compartmental models, multiple dosing and steady state, weighted fitting with all its statistics, simulation. One project format, one way of handling units.',
-        proof: 'docs/validation.md, section 1',
-        href: 'validation'
-      },
-      {
-        title: 'Deterministic, and robust to bad data',
-        body: 'Same input and same version: same number. The code has no unsafe block and the linter forbids crashes: a malformed CSV or a non-estimable half-life gives a readable message, not a crash.',
-        proof: 'README, section Why Rust',
+        n: '03',
+        title: 'No crash on bad input (≈ 9 ms on Theoph)',
+        body: 'The code contains no unsafe block, and the linter forbids unwrap and panic! across the numerical crates: a malformed CSV or a non-estimable half-life returns an explicit reason, never a crash. Running NCA on all 12 subjects of Theoph takes about 9 ms, startup included.',
+        proof: 'Why Rust (README)',
         href: 'whyRust'
       },
       {
-        title: 'A published validation you can replay',
-        body: '48,955 values compared with PKNCA, R nls and nlsLM, and closed forms computed in 256-bit arithmetic. One command regenerates the conformance table, and its floors, checked in continuous integration, can only go up. Designed to be validated by the user, with the evidence provided.',
-        proof: 'docs/validation.md',
-        href: 'validation'
-      },
-      {
-        title: 'Light and fast',
-        body: 'Compiled Rust, with no environment to start. The calculations are small; what matters is that nothing has to load before them. The same code compiles to WebAssembly, and continuous integration checks it.',
-        stat: '≈ 9 ms',
-        statLabel:
-          'non-compartmental analysis of the 12 subjects of the Theoph dataset, program start included (median of 30 runs, Linux container at 2.1 GHz)',
-        proof: 'Command caladrius-cli nca.run, README section Usage',
-        href: 'usage'
-      },
-      {
-        title: 'Open and modular',
-        body: 'MIT or Apache-2.0 license, at your option. The engine is made of separate building blocks (nca, models, fit, project) whose dependencies are checked in continuous integration: each works as well in a test, a terminal, an agent or a window.',
-        proof: 'AGENTS.md, section 4',
+        n: '04',
+        title: 'Open, modular and governed by tests',
+        body: 'Dual-licensed under MIT or Apache-2.0. The numerical crates (nca, models, fit, project) are isolated from the interface and checked in continuous integration: no mathematical rule hides inside a UI button.',
+        proof: 'Architecture contract (AGENTS.md)',
         href: 'layers'
       }
-    ],
-    limits:
-      'What Caladrius does not do: population modelling, bioequivalence, PBPK. For those, R and dedicated software remain the right tools.'
+    ]
   },
   validation: {
-    kicker: 'Validation',
-    title: 'Every number computed twice',
+    kicker: 'Chapter II · Validation · The verification standard',
+    title: 'Every number computed twice, before it is trusted.',
     intro:
-      'No expected value comes from commercial software. They are produced by independent calculations in R, from public or synthetic data, with versioned scripts.',
-    headline: 'values matching',
-    headlineNote: '16 further values are documented method differences, neither validated nor counted as failures.',
-    barLabel: 'Checked values by domain',
-    cols: { domain: 'Domain', oracle: 'Independent reference', values: 'Values', cases: 'Cases', tol: 'Relative tolerance' },
+      'No expected value comes from commercial software. Every single one is produced by an independent calculation in R, from textbook equations and public or synthetic datasets, through versioned scripts anyone can re-run.',
+    headline: 'values matching across 490 test cases',
+    headlineNote:
+      '16 further values are documented method differences (such as rounding conventions or boundary rules), neither validated nor counted as failures.',
+    cols: { domain: 'Domain', oracle: 'Independent R oracle', values: 'Values', cases: 'Cases', tol: 'Relative tolerance' },
     rows: [
       { key: 'nca', domain: 'Non-compartmental analysis', short: 'NCA', oracle: 'PKNCA 0.12.1', values: 3744, cases: '20', tol: '1e-6' },
       {
@@ -689,31 +530,56 @@ const en: Dict = {
         cases: '440',
         tol: '1e-12'
       },
-      { key: 'fit', domain: 'Weighted fitting', short: 'Fitting', oracle: 'R nls and nlsLM, which must agree', values: 10500, cases: '30', tol: '1e-4' }
+      { key: 'fit', domain: 'Weighted fitting (WLS)', short: 'Fitting', oracle: 'R nls and nlsLM, which must agree with each other', values: 10500, cases: '30', tol: '1e-4' }
     ],
+    meaningTitle: 'A narrow, measurable meaning',
     meaning:
-      '“Validated” has a narrow meaning here: a number produced by Caladrius equals a number computed independently, within a stated tolerance, on a stated case. Tolerances are defined once, and the conformance floors checked in continuous integration can only go up.',
+      '“Validated” means one specific thing here: a number produced by Caladrius equals a number computed independently in R, within a tolerance defined once, on a stated case. One command regenerates the conformance table, and its continuous-integration floors can only go up.',
+    honestTitle: 'When the oracle was wrong',
     honest:
-      'An R reference was wrong once, and the engine was right: the gap was documented, then fixed in the script, not absorbed into a tolerance.',
-    linkReport: 'Validation report',
-    linkConformance: 'Conformance table'
+      'An R reference script was wrong once, and the engine was right: the discrepancy was diagnosed, documented and fixed in the reference script, never absorbed by widening a tolerance.',
+    linkReport: 'Validation report (docs/validation.md)',
+    linkConformance: 'Conformance table (docs/conformance.md)'
   },
   apothicaire: {
-    kicker: 'Apothicaire',
-    title: 'A local assistant that never computes',
+    kicker: 'Chapter III · Apothicaire · The checked local artisan',
+    title: 'A local assistant that never computes.',
     intro:
-      'Apothicaire is the other half of Officina: an open language model, on a single PC, that reads the request, calls Caladrius and explains the result. Between the model and you, a gate written in plain Python, not learned, checks every number.',
+      'Apothicaire is the other half of the workbench: a local harness that surrounds an open language model with three complementary safeguards so that no invented or altered figure reaches the user.',
+    parts: [
+      {
+        tag: '01 · The router (local AI)',
+        title: 'Bonsai 2 27B on llama.cpp',
+        body: 'Running on a single 12 GB graphics card, the model reads your question in French or English, picks among Caladrius’s MCP commands and explains what the engine returned, without ever doing arithmetic itself.',
+        href: 'apothicaire',
+        linkLabel: 'abdou-rgd/apothicaire'
+      },
+      {
+        tag: '02 · The number gate (Python, no AI)',
+        title: 'Deterministic check via gate.py',
+        body: 'Standing between the model and the screen, a plain Python gate inspects every draft and rejects any measured number that appears neither in Caladrius’s tool outputs nor in your own message.',
+        href: 'gate',
+        linkLabel: 'Read gate.py'
+      },
+      {
+        tag: '03 · The ledger (OptChat)',
+        title: 'Tree-structured memory where nothing is erased',
+        body: 'A study conversation quickly grows past what 12 GB of video memory can hold. Following an idea by Victor Taelin, OptChat keeps the full history on disk and shows the model recent messages verbatim and older ones merged into a binary tree of summaries (8 of 8 planted facts recalled after 32 turns).',
+        href: 'optchat',
+        linkLabel: 'abdou-rgd/optchat'
+      }
+    ],
     flow: {
       title: 'One question, followed to the end',
       scenarioLabel: 'Pick a case',
       scenarios: { ok: 'The number is verified', bad: 'The number is rejected' },
       replay: 'Replay',
-      steps: ['Question', 'Choice of tool', 'Computed by Caladrius', 'Number gate'],
+      steps: ['Question', 'Tool choice (AI)', 'Calculation (Caladrius)', 'Number gate (Python)'],
       ok: {
         question: 'What is the terminal half-life of this profile?',
         tool: 'the model picks the non-compartmental analysis',
         draft: 'The terminal half-life is [[hl]] (terminal phase from [[t1]] to [[t2]]).',
-        verdict: 'Answer shown.',
+        verdict: 'Answer shown: every measured number traces back to a Caladrius output.',
         exempt: 'small integer with no unit, exempt'
       },
       bad: {
@@ -721,105 +587,98 @@ const en: Dict = {
         tool: 'the model reads the result of the same analysis again',
         draft: 'CL/F is [[cl]], that is [[conv]].',
         conv: '62.5 mL/min',
-        rejected: 'found in no tool result: a conversion made by the model',
-        verdict: 'Answer held back: one regeneration is requested, then a visible warning if the number persists.'
+        rejected: 'found in no tool result: a unit conversion done in the model’s head',
+        verdict: 'Answer held back by gate.py: a regeneration without mental arithmetic is requested.'
       },
       found: 'found in',
       caption:
-        'An example built to illustrate the mechanism and checked with gate.py; the numbers come from Caladrius, on the synthetic profile at the top of the page. Small integers with no unit (0 to 20) and dates are exempt; everything else is checked.'
+        'A real check run with gate.py on the synthetic profile at the top of the page. Small integers with no unit (0 to 20) and dates are exempt; every measured value is checked.'
     },
-    benchTitle: 'What the benchmark measures',
+    benchTitle: 'What the benchmark measures (and the lesson of the 76 numbers)',
+    benchStory:
+      'Across 25 synthetic exercises of 8 turns (200 questions), the model’s first drafts initially contained 76 untraced numbers out of 932: every single one occurred in the one question that tempted it to subtract two results in its head. Once Caladrius was given a dedicated command (analysis.compare), that count dropped to 0 out of 897. You do not make a model reliable by asking it to be careful; you take arithmetic away from it.',
     bench: [
-      { value: '0 / 897', label: 'untraced numbers in the model’s first drafts' },
-      { value: '193 / 200', label: 'turns correct by a second, oracle-based check' },
-      { value: '141 / 141', label: 'valid tool calls' },
-      { value: '8 s', label: 'per turn on average, on a 12 GB card' }
+      { value: '0 / 897', label: 'untraced numbers in first drafts (after adding analysis.compare)' },
+      { value: '193 / 200', label: 'turns correct by a second, independent oracle check' },
+      { value: '141 / 141', label: 'syntactically and semantically valid MCP tool calls' },
+      { value: '8 s', label: 'per turn on average, locally on a single 12 GB graphics card' }
     ],
-    benchSetup: '25 synthetic exercises of 8 turns, Bonsai\u00a02\u00a027B on llama.cpp without a fork, a single run.',
     benchCaveat:
-      'These figures are measured on the set used to develop the tool: they are counts, not guarantees. The gate cannot see a right number attached to the wrong parameter; that is the second check’s job, and a frozen, out-of-sample test set is the next step.',
-    benchLink: 'Benchmark report',
-    gateLink: 'Read gate.py'
-  },
-  local: {
-    kicker: 'Local model',
-    title: 'Why a local model, rather than a large subscription model?',
-    intro:
-      'Apothicaire runs an open model of reasonable size on a single consumer graphics card. It is not a fallback: for this job, it is the right tool.',
-    items: [
+      'Methodological caveat: these figures are measured in-sample, on the 25 exercises used to develop the tool. They are counts, not guarantees. The current gate cannot catch a right number attached to the wrong parameter; a frozen out-of-sample test set and Gate v2 (typed rendering) address that limit.',
+    benchLink: 'Full benchmark report',
+    gateLink: 'Read gate.py',
+    localTitle: 'Why a local model on 12 GB, rather than a large subscription model?',
+    localIntro:
+      'Large subscription models are remarkable, and Officina’s code is in fact written with their help. Yet for querying study data and explaining pharmacokinetic results, a well-surrounded open model on a local machine wins on four counts:',
+    localPillars: [
       {
         word: 'Privacy',
         claim: 'The data never leave the machine.',
-        body: 'Concentrations, doses, study notes: nothing is sent to a third-party server, there is no API key, and the assistant works offline. For confidential study data, that is the starting condition.'
+        body: 'Concentrations, doses, study notes: nothing is sent to a third-party server, no API key is needed, and the assistant runs offline. For confidential study data, that is the starting condition.'
       },
       {
         word: 'Sovereignty',
-        claim: 'Nobody changes the model for you.',
-        body: 'The weights are on disk and their version is pinned: no forced retirement, no change of price or terms, no dependence on a vendor. The same chain, with the same model, can be replayed in two years.'
+        claim: 'Nobody changes the model behind your back.',
+        body: 'The weights sit on disk and their version is pinned: no forced retirement, no silent shift in behaviour or pricing, no vendor lock-in. The exact same chain can be replayed two years from now.'
       },
       {
         word: 'Proportion',
-        claim: 'No need for a giant.',
-        body: 'The model does not compute: it understands the question, picks the tool and explains the result. The calculation is done by Caladrius and the checking by the gate. For the rest, a 27-billion-parameter model on a 12 GB card is enough.'
-      },
-      {
-        word: 'Specialisation',
-        claim: 'A model fitted to the task.',
-        body: 'A mid-sized model with good surroundings (typed tools, memory, short instructions) beats a huge generalist here. Since its weights are open, it can be fine-tuned on PK exercises, quantised, or relieved of closed questions by an even smaller decision model, an idea under study.'
+        claim: 'No need for a giant when the engine computes.',
+        body: 'The model does no maths: it understands the request, picks the tool and explains the result. Calculation belongs to Caladrius and checking to the Python gate. For that job, 27 billion parameters on a 12 GB card are enough.'
       },
       {
         word: 'Modularity',
-        claim: 'The model is a replaceable part.',
-        body: 'The architecture depends on no particular model: any model served by llama.cpp that can call tools can replace Bonsai\u00a02\u00a027B, and the same benchmark tells whether it does better. The engine and the gate do not change.'
+        claim: 'An open, adaptable and replaceable part.',
+        body: 'Because the weights are open, they can be quantised, fine-tuned on PK exercises or paired with a tiny decision model. Any model served by llama.cpp can replace Bonsai 2 27B tomorrow and face the same benchmark.'
       }
     ],
-    tableTitle: 'Two ways to run an assistant',
-    cols: { aspect: '', cloud: 'Subscription model', local: 'Local model (Apothicaire)' },
-    rows: [
-      { aspect: 'Where the data go', cloud: 'to the vendor’s servers', local: 'nowhere: they stay on the machine' },
-      { aspect: 'Who picks the version', cloud: 'the vendor', local: 'you: weights on disk, pinned version' },
-      { aspect: 'Offline', cloud: 'no', local: 'yes' },
-      { aspect: 'Cost', cloud: 'a subscription or pay-per-use', local: 'the hardware, once' },
-      { aspect: 'Changing the model', cloud: 'within the limits of the offer', local: 'yes: open weights, fine-tuning, quantisation' },
-      { aspect: 'Hardware', cloud: 'the vendor’s data centres', local: 'a PC with a 12 GB graphics card' }
+    localQuote:
+      'To route a question to the right calculation and explain its result, it is not the size of the model that limits reliability: it is verification.'
+  },
+  atelier: {
+    kicker: 'Chapter IV · The Workshop · Approach, method and roadmap',
+    title: 'Why I built Officina, and how the workshop is run.',
+    authorSubtitle: 'The approach and the author',
+    authorName: 'Abdallah Ragued',
+    authorRole: 'M2 Pharmacokinetic Modelling (Université Paris Cité) · M2 Health Data Science (Université Paris-Saclay)',
+    authorParagraphs: [
+      'My path to pharmacometrics was not a straight line (a bachelor’s degree in economics, a first master’s year in public health with a biostatistics internship at IHU ICAN at Pitié-Salpêtrière, an M2 in Health Data Science at Université Paris-Saclay, and now the M2 in Pharmacokinetic Modelling at Université Paris Cité), but in retrospect it reads as one question approached from three angles: how to measure, model and explain a clinical effect properly.',
+      'Officina grew out of two observations during my coursework. First, standard pharmacokinetic calculations are often taught inside commercial software that shows the results without showing its reasoning: rebuilding them one by one from textbooks (Gabrielsson & Weiner, Gibaldi & Perrier, Rowland & Tozer), with a test for every rule, was how I made sure I understood them all the way down. Second, I wanted to test the research question I aim to pursue in a PhD at the meeting point of DMPK and artificial intelligence: can a small local AI be trusted with pharmacokinetic numbers, and under what architectural guarantees?',
+      'I build Officina on my own by orchestrating coding agents under a written contract (AGENTS.md) built on separation of duties: whoever writes the engine never writes the R oracle, an independent reviewer hunts panic paths and loosened tolerances, and outside models are briefed blind to break my claims. On 10 October, a blind adversarial review (74 hard requests) refuted an early 99.9 % score that rested on training-phrasing memorisation: I dropped the flattering figure and published the failure, which now seeds the frozen test set. On 14 October, an outside audit re-ran all 2,559 tests and regenerated the conformance table identically.'
     ],
-    note:
-      'Large subscription models are remarkable, and Officina’s code is in fact written with them. But to route a question to the right calculation and explain its result, it is not the size of the model that limits reliability: it is verification.'
-  },
-  method: {
-    kicker: 'Method',
-    title: 'How the code is written',
-    body: 'The code is written by AI coding agents under a written contract, with a board of small task cards, separate roles for whoever writes a number, whoever tests it and whoever reviews it, and independent reviews by other models. The author answers questions and decides what is published. An outside audit on 14 October re-ran 2,559 tests and regenerated the conformance table identically.',
-    link: 'Read METHOD.md'
-  },
-  roadmap: {
-    kicker: 'Roadmap',
-    title: 'What comes next',
-    items: [
-      { title: 'Frozen test set', body: 'Out-of-sample exercises, fixed and pre-registered before they are run, to measure the assistant honestly.' },
+    methodLink: 'Read the method contract (METHOD.md)',
+    githubLink: 'GitHub profile (abdou-rgd)',
+    roadmapSubtitle: 'What comes next: a measured ambition',
+    roadmapIntro:
+      'Officina does not try to mimic the breadth of an enterprise software suite. Its ambition is to set an open, reproducible standard across four tracks:',
+    roadmap: [
       {
-        title: 'Number gate v2',
-        body: 'Typed rendering: the model cites a reference to a tool result, and deterministic code writes the engine’s value, its sign, its unit and the name of the quantity.'
+        title: '1 · Pre-registered frozen test set',
+        body: 'Evaluate Apothicaire out-of-sample on blind requests fixed before execution, under a single rubric to compare small local models honestly (27B, 9B and tiny decision models).'
       },
-      { title: 'Validation kit', body: 'Reference sets, tolerances and a regenerable execution report, with a drift check in continuous integration.' },
-      { title: 'PAGE 2027', body: 'An abstract on the independent comparison of open NCA tools.' }
+      {
+        title: '2 · Number gate v2 (typed rendering)',
+        body: 'Instead of writing a number in free text, the model emits a reference ({{call.param}}) and deterministic code injects the value, its sign, its unit and the quantity name straight from Caladrius’s MCP schema.'
+      },
+      {
+        title: '3 · Open validation kit & PAGE 2027',
+        body: 'Publish a regenerable validation kit (reference sets, tolerances and CI drift checks, structured after ICH M15 and M13A traceability expectations) and submit the first independent comparison of open NCA tools to PAGE 2027.'
+      },
+      {
+        title: '4 · Caladrius in the browser & PK/PD expansion',
+        body: 'Put the WebAssembly build of the engine online so students and researchers can check a profile with zero installation, before expanding the mathematical scope step by step.'
+      }
     ]
   },
-  about: {
-    kicker: 'Author',
-    title: 'Who is behind it',
-    name: 'Abdallah Ragued',
-    body: 'Master’s student in pharmacokinetic modelling at Université Paris Cité, after a Master’s in health data science at Université Paris-Saclay. Officina is the portfolio for a PhD at the meeting point of DMPK and artificial intelligence. The name is Latin for the apothecary’s workshop.',
-    github: 'GitHub: abdou-rgd'
-  },
   footer: {
-    repos: 'Repositories',
-    licenses: 'Licenses',
+    repos: 'The four repositories',
+    licenses: 'Licences and credits',
     licenseText:
-      'Code and text under MIT OR Apache-2.0, at your option. React Bits animation components under their own license (MIT + Commons Clause). Newsreader and IBM Plex fonts under the SIL Open Font License 1.1, served by this site.',
-    credit: 'Caladrius and Apothicaire logos drawn by Amina. Screenshots of the application taken from the Caladrius repository.',
-    privacy: 'This site uses no cookies, no trackers and no request to another site.',
-    disclaimer: 'Research prototype with no regulatory status. Not for use on a patient or for a real decision.'
+      'Code and text published under MIT OR Apache-2.0, at your option. Newsreader and IBM Plex fonts under the SIL Open Font License 1.1, served by this site.',
+    credit:
+      'The emblems of Caladrius (the bird) and Apothicaire (the mortar) were drawn by hand by Amina, a talented friend, and vectorised for the workshop.',
+    privacy: 'This site uses no cookies, no trackers and no request to any third-party server.',
+    disclaimer: 'Research prototype with no regulatory status. Never use for a patient or a clinical decision.'
   }
 };
 

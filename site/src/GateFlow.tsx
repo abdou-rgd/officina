@@ -31,12 +31,15 @@ export default function GateFlow({ t, lang }: Props) {
   useEffect(() => {
     const el = ref.current;
     if (!el || seen) return undefined;
-    const io = new IntersectionObserver(entries => {
-      if (entries.some(e => e.isIntersecting)) {
-        setSeen(true);
-        io.disconnect();
-      }
-    }, { threshold: 0.35 });
+    const io = new IntersectionObserver(
+      entries => {
+        if (entries.some(e => e.isIntersecting)) {
+          setSeen(true);
+          io.disconnect();
+        }
+      },
+      { threshold: 0.35 }
+    );
     io.observe(el);
     return () => io.disconnect();
   }, [seen]);
@@ -48,7 +51,9 @@ export default function GateFlow({ t, lang }: Props) {
     }
     if (!seen) return undefined;
     setStep(0);
-    const timers = Array.from({ length: STEPS }, (_, i) => window.setTimeout(() => setStep(i + 1), 450 + i * 850));
+    const timers = Array.from({ length: STEPS }, (_, i) =>
+      window.setTimeout(() => setStep(i + 1), 450 + i * 850)
+    );
     return () => timers.forEach(window.clearTimeout);
   }, [scenario, run, seen, reduced]);
 
@@ -107,10 +112,10 @@ export default function GateFlow({ t, lang }: Props) {
           <span className="flow__n">1 · {t.steps[0]}</span>
           <p className="bubble">{s.question}</p>
         </li>
-        <li className={`flow__step ${stage(1)}`}>
+        <li className={`flow__step flow__step--ai ${stage(1)}`}>
           <span className="flow__n">2 · {t.steps[1]}</span>
           <p className="code-line">
-            <span className="accent">{tool.name}</span>
+            <span className="ochre">{tool.name}</span>
             <span className="muted">{tool.args}</span>
           </p>
           <p className="flow__note">{s.tool}</p>
@@ -142,7 +147,9 @@ export default function GateFlow({ t, lang }: Props) {
           <ul className="checks">
             {Object.values(tokens).map(tok => (
               <li key={tok.text} className={`check check--${tok.verdict}`}>
-                <span className="check__mark" aria-hidden="true">{tok.verdict === 'ok' ? '✓' : tok.verdict === 'bad' ? '✕' : '–'}</span>
+                <span className="check__mark" aria-hidden="true">
+                  {tok.verdict === 'ok' ? '✓' : tok.verdict === 'bad' ? '✕' : '–'}
+                </span>
                 <span className="mono">{tok.text}</span>{' '}
                 {tok.verdict === 'ok' && (
                   <span>
@@ -157,11 +164,9 @@ export default function GateFlow({ t, lang }: Props) {
         </li>
       </ol>
       <p className={`flow__verdict flow__verdict--${scenario} ${step >= STEPS ? 'is-on' : ''}`} aria-live="polite">
-        {step >= STEPS ? s.verdict : ' '}
+        {step >= STEPS ? s.verdict : '\u00a0'}
       </p>
-      <p className="flow__caption">
-        {t.caption}
-      </p>
+      <p className="flow__caption">{t.caption}</p>
     </figure>
   );
 }
