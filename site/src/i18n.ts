@@ -55,9 +55,9 @@ const fr = {
     skip: 'Aller au contenu'
   },
   hero: {
-    eyebrow: 'Officina · laboratoire ouvert de pharmacocinétique et d’IA vérifiable',
+    eyebrow: 'Officina · un moteur PK sans IA, un assistant local sous contrôle',
     intro:
-      'Officina (du latin : l’officine, l’atelier de l’apothicaire) est un banc d’essai né d’une question simple : à quelles conditions peut-on confier des nombres pharmacocinétiques à une petite IA locale ? Ici, les rôles ne se mélangent pas : l’instrument mesure, l’artisan explique, le registre garde la trace. La seule pièce capable de se tromper, le modèle de langage, est entourée de pièces qui ne le peuvent pas.',
+      'Officina (du latin : l’officine, l’atelier de l’apothicaire) réunit deux outils qui ne se mélangent pas. Caladrius, le moteur de calcul, ne contient aucune IA : même entrée, même nombre, et il s’utilise seul. Apothicaire, l’assistant local, ne calcule jamais : il demande chaque nombre à Caladrius, et une porte en Python contrôle sa réponse avant l’écran. Derrière l’atelier, une question : à quelles conditions peut-on confier des nombres pharmacocinétiques à une petite IA locale ?',
     pair: [
       {
         key: 'caladrius',
@@ -174,8 +174,8 @@ const fr = {
       },
       {
         n: '03',
-        title: 'Zéro plantage sur mauvaise donnée (≈ 9 ms sur Theoph)',
-        body: 'Le code ne contient aucun bloc unsafe et le linter interdit unwrap et panic! dans les briques de calcul : un CSV mal formé ou une demi-vie non estimable renvoie un motif explicite, jamais un crash. L’analyse complète des 12 sujets de Theoph prend environ 9 ms, démarrage compris.',
+        title: 'Une erreur lisible plutôt qu’un plantage (≈ 9 ms sur Theoph)',
+        body: 'Le code ne contient aucun bloc unsafe et le linter interdit unwrap et panic! dans les briques de calcul : un CSV mal formé ou une demi-vie non estimable renvoie un motif explicite au lieu de planter. L’analyse complète des 12 sujets de Theoph prend environ 9 ms, démarrage compris.',
         proof: 'Pourquoi Rust (README)',
         href: 'whyRust'
       },
@@ -192,7 +192,7 @@ const fr = {
     kicker: 'Chapitre II · Validation · Le standard de vérification',
     title: 'Chaque nombre recalculé ailleurs, avant d’être cru.',
     intro:
-      'Aucune valeur attendue ne vient d’un logiciel commercial. Elles sont toutes produites par des calculs indépendants en R, à partir des équations des manuels et de données publiques ou synthétiques, avec des scripts versionnés que chacun peut rejouer.',
+      'Toutes les valeurs attendues sont produites par des calculs indépendants en R, à partir des équations des manuels et de données publiques ou synthétiques, avec des scripts versionnés que chacun peut rejouer.',
     headline: 'valeurs conformes sur 490 cas de test',
     headlineNote:
       '16 autres valeurs sont des différences de méthode documentées (comme le choix d’arrondi ou de convention aux bornes), ni validées ni comptées comme échecs.',
@@ -274,15 +274,15 @@ const fr = {
     },
     benchTitle: 'Ce que mesure le benchmark (et la leçon des 76 nombres)',
     benchStory:
-      'Sur 25 exercices synthétiques de 8 tours (200 questions), les premiers jets du modèle contenaient 76 nombres non tracés sur 932 : tous concentrés dans la seule question qui le tentait de soustraire deux résultats de tête. Dès que Caladrius a reçu une commande dédiée (analysis.compare), le compteur est tombé à 0 sur 897. On ne rend pas un modèle fiable en lui demandant d’être prudent, mais en lui retirant le calcul.',
+      'Sur 25 exercices synthétiques de 8 tours (200 questions), les premiers jets du modèle contenaient 76 nombres non tracés sur 932 : tous concentrés dans la seule question qui le tentait de soustraire deux résultats de tête. Dès que Caladrius a reçu une commande dédiée (analysis.compare), le compteur est tombé à 0 sur 926 (et il reste à 0 sur 897 sur le runtime actuel). On ne rend pas un modèle fiable en lui demandant d’être prudent, mais en lui retirant le calcul.',
     bench: [
       { value: '0 / 897', label: 'nombre non tracé dans les premiers jets (après ajout de analysis.compare)' },
-      { value: '193 / 200', label: 'tours corrects selon un second contrôle par oracle indépendant' },
-      { value: '141 / 141', label: 'appels d’outils MCP syntaxiquement et sémantiquement valides' },
+      { value: '193 / 200', label: 'tours entièrement corrects (tous les nombres attendus présents)' },
+      { value: '141 / 141', label: 'appels d’outils MCP valides, aucun refusé ni en échec' },
       { value: '8 s', label: 'par tour en moyenne, en local sur une carte graphique de 12 Go' }
     ],
     benchCaveat:
-      'Réserve méthodologique : ces chiffres sont mesurés in-sample, sur le jeu de 25 exercices qui a servi à mettre au point l’outil. Ce sont des comptes, et non des garanties. La porte actuelle ne détecte pas un bon nombre attaché au mauvais paramètre ; un jeu de test gelé hors échantillon et la Porte v2 (rendu typé) répondent à cette limite.',
+      'Réserve méthodologique : ces chiffres sont mesurés in-sample, sur le jeu de 25 exercices qui a servi à mettre au point l’outil. Ce sont des comptes, et non des garanties. Un second contrôle par oracle, qui vérifie que le nombre cité est celui du paramètre demandé, valide 166 / 175 tours. La porte actuelle ne détecte pas un bon nombre attaché au mauvais paramètre ; un jeu de test gelé hors échantillon et la Porte v2 (rendu typé) répondent à cette limite.',
     benchLink: 'Rapport complet du benchmark',
     gateLink: 'Lire gate.py',
     localTitle: 'Pourquoi un modèle local sur 12 Go, plutôt qu’un grand modèle par abonnement ?',
@@ -321,14 +321,14 @@ const fr = {
     authorRole: 'M2 Modélisation pharmacocinétique (Université Paris Cité) · M2 Health Data Science (Université Paris-Saclay)',
     authorParagraphs: [
       'Mon cheminement vers la pharmacométrie n’a pas suivi une ligne droite (une licence d’économie, un M1 de santé publique avec un stage de biostatistique à l’IHU ICAN de la Pitié-Salpêtrière, un M2 Health Data Science à Paris-Saclay, et aujourd’hui le M2 Modélisation pharmacocinétique à l’Université Paris Cité), mais il se lit après coup comme une seule question abordée sous trois angles : comment mesurer, modéliser et expliquer proprement l’effet d’un médicament.',
-      'Officina est né d’un double constat pendant mes cours. D’abord, les calculs standards de la pharmacocinétique y sont souvent exécutés dans un logiciel commercial qui affiche les résultats sans montrer son raisonnement : les reconstruire un par un à partir des manuels de référence (Gabrielsson & Weiner, Gibaldi & Perrier, Rowland & Tozer), avec un test pour chaque règle, était ma façon de m’assurer que je les comprenais jusqu’au bout. Ensuite, je voulais mettre à l’épreuve la question que je souhaite porter en thèse de doctorat, à la rencontre de la DMPK et de l’intelligence artificielle : peut-on confier des nombres pharmacocinétiques à une petite IA locale, et sous quelles garanties d’architecture ?',
-      'Je travaille seul sur Officina, en orchestrant des agents de programmation sous un contrat écrit (AGENTS.md) fondé sur la séparation des pouvoirs : l’agent qui code le moteur ne rédige jamais les oracles R, un relecteur indépendant traque les chemins de panique et les tolérances relâchées, et d’autres modèles sont mandatés à l’aveugle pour attaquer mes résultats. Le 10 octobre, une revue contradictoire à l’aveugle (74 requêtes difficiles) a réfuté un premier score de 99,9 % qui reposait sur la mémorisation des tournures d’entraînement : j’ai retiré le chiffre flatteur et publié l’échec, qui sert désormais de base au jeu de test gelé. Le 14 octobre, un audit indépendant a relancé les 2 559 tests et régénéré la table de conformité à l’identique.'
+      'Officina est né de deux envies, pendant mes cours. D’abord, comprendre jusqu’au bout les calculs standards de la pharmacocinétique : je les ai reconstruits un par un à partir des manuels de référence (Gabrielsson & Weiner, Gibaldi & Perrier, Rowland & Tozer), avec un test pour chaque règle. Ensuite, mettre à l’épreuve la question que je souhaite porter en thèse de doctorat, à la rencontre de la DMPK et de l’intelligence artificielle : peut-on confier des nombres pharmacocinétiques à une petite IA locale, et sous quelles garanties d’architecture ?',
+      'Je travaille seul sur Officina, en orchestrant des agents de programmation sous un contrat écrit (AGENTS.md) fondé sur la séparation des pouvoirs : l’agent qui code le moteur ne rédige jamais les oracles R, un relecteur indépendant traque les chemins de panique et les tolérances relâchées, et d’autres modèles sont mandatés à l’aveugle pour attaquer mes résultats. Le 10 octobre, une revue contradictoire à l’aveugle (74 requêtes difficiles) a réfuté le score de 99,9 % d’un petit modèle de décision (0,8B), qui reposait sur la mémorisation des tournures d’entraînement : j’ai retiré le chiffre flatteur et publié l’échec, qui sert désormais de base au jeu de test gelé. Le 14 octobre, un audit indépendant a relancé les 2 559 tests et régénéré la table de conformité à l’identique.'
     ],
     methodLink: 'Lire le contrat de méthode (METHOD.md)',
     githubLink: 'Profil GitHub (abdou-rgd)',
     roadmapSubtitle: 'Ce qui vient ensuite : une ambition mesurée',
     roadmapIntro:
-      'Officina ne cherche pas à imiter l’étendue d’un progiciel industriel. Son ambition est d’établir un standard ouvert et reproductible sur quatre chantiers :',
+      'Officina ne vise pas l’étendue d’une suite complète : son périmètre reste étroit et vérifié. La suite tient en quatre chantiers :',
     roadmap: [
       {
         title: '1 · Jeu de test gelé et pré-enregistré',
@@ -340,7 +340,7 @@ const fr = {
       },
       {
         title: '3 · Kit de validation ouvert & PAGE 2027',
-        body: 'Publier un kit de validation régénérable (jeux de référence, tolérances, contrôle de dérive en intégration continue, structuré sur le modèle des attentes de traçabilité ICH M15 et M13A) et soumettre à PAGE 2027 la première comparaison indépendante des outils NCA ouverts.'
+        body: 'Publier un kit de validation régénérable (jeux de référence, tolérances, contrôle de dérive en intégration continue, structuré sur le modèle des attentes de traçabilité ICH M15 et M13A) et soumettre à PAGE 2027 une comparaison indépendante des outils NCA ouverts.'
       },
       {
         title: '4 · Caladrius dans le navigateur & extension PK/PD',
@@ -377,9 +377,9 @@ const en: Dict = {
     skip: 'Skip to content'
   },
   hero: {
-    eyebrow: 'Officina · an open workbench for pharmacokinetics and verifiable AI',
+    eyebrow: 'Officina · a PK engine with no AI, a local assistant kept in check',
     intro:
-      'Officina (Latin for the apothecary’s workshop) is an open research workbench built around one question: under what architectural guarantees can a small local AI be trusted with pharmacokinetic numbers? Here, roles never blur: the instrument measures, the artisan explains, the ledger remembers. The one part that can be wrong, the language model, is surrounded by parts that cannot.',
+      'Officina (Latin for the apothecary’s workshop) brings together two tools that never blur. Caladrius, the calculation engine, contains no AI: same input, same number, and it works on its own. Apothicaire, the local assistant, never computes: it asks Caladrius for every number, and a Python gate checks its answer before it reaches the screen. Behind the workshop sits one question: under what guarantees can a small local AI be trusted with pharmacokinetic numbers?',
     pair: [
       {
         key: 'caladrius',
@@ -496,8 +496,8 @@ const en: Dict = {
       },
       {
         n: '03',
-        title: 'No crash on bad input (≈ 9 ms on Theoph)',
-        body: 'The code contains no unsafe block, and the linter forbids unwrap and panic! across the numerical crates: a malformed CSV or a non-estimable half-life returns an explicit reason, never a crash. Running NCA on all 12 subjects of Theoph takes about 9 ms, startup included.',
+        title: 'A readable error instead of a crash (≈ 9 ms on Theoph)',
+        body: 'The code contains no unsafe block, and the linter forbids unwrap and panic! across the numerical crates: a malformed CSV or a non-estimable half-life returns an explicit reason instead of a crash. Running NCA on all 12 subjects of Theoph takes about 9 ms, startup included.',
         proof: 'Why Rust (README)',
         href: 'whyRust'
       },
@@ -514,7 +514,7 @@ const en: Dict = {
     kicker: 'Chapter II · Validation · The verification standard',
     title: 'Every number computed twice, before it is trusted.',
     intro:
-      'No expected value comes from commercial software. Every single one is produced by an independent calculation in R, from textbook equations and public or synthetic datasets, through versioned scripts anyone can re-run.',
+      'Every expected value is produced by an independent calculation in R, from textbook equations and public or synthetic datasets, through versioned scripts anyone can re-run.',
     headline: 'values matching across 490 test cases',
     headlineNote:
       '16 further values are documented method differences (such as rounding conventions or boundary rules), neither validated nor counted as failures.',
@@ -596,15 +596,15 @@ const en: Dict = {
     },
     benchTitle: 'What the benchmark measures (and the lesson of the 76 numbers)',
     benchStory:
-      'Across 25 synthetic exercises of 8 turns (200 questions), the model’s first drafts initially contained 76 untraced numbers out of 932: every single one occurred in the one question that tempted it to subtract two results in its head. Once Caladrius was given a dedicated command (analysis.compare), that count dropped to 0 out of 897. You do not make a model reliable by asking it to be careful; you take arithmetic away from it.',
+      'Across 25 synthetic exercises of 8 turns (200 questions), the model’s first drafts initially contained 76 untraced numbers out of 932: every single one occurred in the one question that tempted it to subtract two results in its head. Once Caladrius was given a dedicated command (analysis.compare), that count dropped to 0 out of 926 (and it stays at 0 out of 897 on the current runtime). You do not make a model reliable by asking it to be careful; you take arithmetic away from it.',
     bench: [
       { value: '0 / 897', label: 'untraced numbers in first drafts (after adding analysis.compare)' },
-      { value: '193 / 200', label: 'turns correct by a second, independent oracle check' },
-      { value: '141 / 141', label: 'syntactically and semantically valid MCP tool calls' },
+      { value: '193 / 200', label: 'turns fully correct (every expected number present)' },
+      { value: '141 / 141', label: 'valid MCP tool calls, none rejected or failed' },
       { value: '8 s', label: 'per turn on average, locally on a single 12 GB graphics card' }
     ],
     benchCaveat:
-      'Methodological caveat: these figures are measured in-sample, on the 25 exercises used to develop the tool. They are counts, not guarantees. The current gate cannot catch a right number attached to the wrong parameter; a frozen out-of-sample test set and Gate v2 (typed rendering) address that limit.',
+      'Methodological caveat: these figures are measured in-sample, on the 25 exercises used to develop the tool. They are counts, not guarantees. A second, oracle check, which verifies that each quoted number belongs to the parameter asked for, passes 166 / 175 turns. The current gate cannot catch a right number attached to the wrong parameter; a frozen out-of-sample test set and Gate v2 (typed rendering) address that limit.',
     benchLink: 'Full benchmark report',
     gateLink: 'Read gate.py',
     localTitle: 'Why a local model on 12 GB, rather than a large subscription model?',
@@ -643,14 +643,14 @@ const en: Dict = {
     authorRole: 'M2 Pharmacokinetic Modelling (Université Paris Cité) · M2 Health Data Science (Université Paris-Saclay)',
     authorParagraphs: [
       'My path to pharmacometrics was not a straight line (a bachelor’s degree in economics, a first master’s year in public health with a biostatistics internship at IHU ICAN at Pitié-Salpêtrière, an M2 in Health Data Science at Université Paris-Saclay, and now the M2 in Pharmacokinetic Modelling at Université Paris Cité), but in retrospect it reads as one question approached from three angles: how to measure, model and explain a clinical effect properly.',
-      'Officina grew out of two observations during my coursework. First, standard pharmacokinetic calculations are often taught inside commercial software that shows the results without showing its reasoning: rebuilding them one by one from textbooks (Gabrielsson & Weiner, Gibaldi & Perrier, Rowland & Tozer), with a test for every rule, was how I made sure I understood them all the way down. Second, I wanted to test the research question I aim to pursue in a PhD at the meeting point of DMPK and artificial intelligence: can a small local AI be trusted with pharmacokinetic numbers, and under what architectural guarantees?',
-      'I build Officina on my own by orchestrating coding agents under a written contract (AGENTS.md) built on separation of duties: whoever writes the engine never writes the R oracle, an independent reviewer hunts panic paths and loosened tolerances, and outside models are briefed blind to break my claims. On 10 October, a blind adversarial review (74 hard requests) refuted an early 99.9 % score that rested on training-phrasing memorisation: I dropped the flattering figure and published the failure, which now seeds the frozen test set. On 14 October, an outside audit re-ran all 2,559 tests and regenerated the conformance table identically.'
+      'Officina grew out of two wishes during my coursework. First, to understand standard pharmacokinetic calculations all the way down: I rebuilt them one by one from the textbooks (Gabrielsson & Weiner, Gibaldi & Perrier, Rowland & Tozer), with a test for every rule. Second, to test the research question I aim to pursue in a PhD at the meeting point of DMPK and artificial intelligence: can a small local AI be trusted with pharmacokinetic numbers, and under what architectural guarantees?',
+      'I build Officina on my own by orchestrating coding agents under a written contract (AGENTS.md) built on separation of duties: whoever writes the engine never writes the R oracle, an independent reviewer hunts panic paths and loosened tolerances, and outside models are briefed blind to break my claims. On 10 October, a blind adversarial review (74 hard requests) refuted the 99.9 % score of a small decision model (0.8B), which rested on training-phrasing memorisation: I dropped the flattering figure and published the failure, which now seeds the frozen test set. On 14 October, an outside audit re-ran all 2,559 tests and regenerated the conformance table identically.'
     ],
     methodLink: 'Read the method contract (METHOD.md)',
     githubLink: 'GitHub profile (abdou-rgd)',
     roadmapSubtitle: 'What comes next: a measured ambition',
     roadmapIntro:
-      'Officina does not try to mimic the breadth of an enterprise software suite. Its ambition is to set an open, reproducible standard across four tracks:',
+      'Officina does not aim for the breadth of a full suite: its scope stays narrow and verified. What comes next fits in four tracks:',
     roadmap: [
       {
         title: '1 · Pre-registered frozen test set',
@@ -662,7 +662,7 @@ const en: Dict = {
       },
       {
         title: '3 · Open validation kit & PAGE 2027',
-        body: 'Publish a regenerable validation kit (reference sets, tolerances and CI drift checks, structured after ICH M15 and M13A traceability expectations) and submit the first independent comparison of open NCA tools to PAGE 2027.'
+        body: 'Publish a regenerable validation kit (reference sets, tolerances and CI drift checks, structured after ICH M15 and M13A traceability expectations) and submit an independent comparison of open NCA tools to PAGE 2027.'
       },
       {
         title: '4 · Caladrius in the browser & PK/PD expansion',
