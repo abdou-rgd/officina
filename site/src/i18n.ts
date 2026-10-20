@@ -340,7 +340,7 @@ const fr = {
       },
       {
         title: '3 · Kit de validation ouvert & PAGE 2027',
-        body: 'Publier un kit de validation régénérable (jeux de référence, tolérances, contrôle de dérive en intégration continue, structuré sur le modèle des attentes de traçabilité ICH M15 et M13A) et soumettre à PAGE 2027 une comparaison indépendante des outils NCA ouverts.'
+        body: 'Publier un kit de validation régénérable (jeux de référence, tolérances, contrôle de dérive en intégration continue) et soumettre à PAGE 2027 une comparaison indépendante des outils NCA ouverts.'
       },
       {
         title: '4 · Caladrius dans le navigateur & extension PK/PD',
@@ -662,7 +662,7 @@ const en: Dict = {
       },
       {
         title: '3 · Open validation kit & PAGE 2027',
-        body: 'Publish a regenerable validation kit (reference sets, tolerances and CI drift checks, structured after ICH M15 and M13A traceability expectations) and submit an independent comparison of open NCA tools to PAGE 2027.'
+        body: 'Publish a regenerable validation kit (reference sets, tolerances and CI drift checks) and submit an independent comparison of open NCA tools to PAGE 2027.'
       },
       {
         title: '4 · Caladrius in the browser & PK/PD expansion',
