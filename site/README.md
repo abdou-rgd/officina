@@ -35,7 +35,9 @@ npm run build     # static files in dist/
 - **Own domain.** `site/CNAME` holds the domain, `officina-dmpk.com`, as its only line; the same
   domain is set in Settings → Pages → Custom domain. A non-empty `CNAME` makes the build serve from
   `/` instead of `/officina/`; emptying it goes back to the project page.
-- **Logos.** `public/caladrius-logo-small-mono.svg` is the Caladrius logo (drawn by Amina), copied from
-  `caladrius/assets/logo/`; it marks the Caladrius card only and is used as a CSS mask, so it takes
-  the theme's accent colour. Officina and Apothicaire have no logo yet: the header is text only and
-  `public/favicon.svg` is a plain placeholder monogram.
+- **Logos.** `public/caladrius-logo-small-mono.svg` and `public/apothicaire-logo-small-mono.svg` are
+  the Caladrius and Apothicaire logos (both drawn by Amina), copied from `assets/logo/` in their own
+  repositories. Each marks its own tool only and is used as a CSS mask: the bird takes the theme's
+  accent green, the mortar keeps Apothicaire's ochre (`--apothicaire`, gold in the dark theme).
+  Officina has no logo yet: the header is text only and `public/favicon.svg` is a plain placeholder
+  monogram.

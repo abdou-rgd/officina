@@ -9,9 +9,19 @@ import { dict, links, positioning, type Lang } from './i18n';
 import { useActiveSection, useReveal } from './motion';
 import { useLang, useTheme, type ThemeChoice } from './prefs';
 
-// The bird is Caladrius's logo (drawn by Amina), so it marks Caladrius only;
-// Officina and Apothicaire get their own logos later.
-const caladriusLogo = { '--logo-url': `url(${import.meta.env.BASE_URL}caladrius-logo-small-mono.svg)` } as CSSProperties;
+// Each tool's own mark (both drawn by Amina): the bird for Caladrius, the mortar for Apothicaire.
+// OptChat has none, and Officina gets its own logo later.
+const logoUrl = (file: string) => ({ '--logo-url': `url(${import.meta.env.BASE_URL}${file})` }) as CSSProperties;
+const logos: Partial<Record<string, CSSProperties>> = {
+  caladrius: logoUrl('caladrius-logo-small-mono.svg'),
+  apothicaire: logoUrl('apothicaire-logo-small-mono.svg')
+};
+
+function LogoMark({ tool, className = '' }: { tool: string; className?: string }) {
+  const style = logos[tool];
+  if (!style) return null;
+  return <span className={`logo-mark logo-mark--${tool} ${className}`.trim()} style={style} aria-hidden="true" />;
+}
 
 // ShinyText parses its colours on a canvas, so it needs literal colours rather than CSS variables.
 const shine = {
@@ -106,7 +116,7 @@ export default function App() {
                   <div key={item.key} className={`pair__item pair__item--${item.key}`}>
                     <span className={`chip ${item.key === 'caladrius' ? 'chip--det' : 'chip--ai'}`}>{item.tag}</span>
                     <p className="pair__name">
-                      {item.key === 'caladrius' && <span className="logo-mark" style={caladriusLogo} aria-hidden="true" />}
+                      <LogoMark tool={item.key} />
                       {item.name}, <em>{item.role}</em>
                     </p>
                     <p className="pair__body">{item.body}</p>
@@ -153,7 +163,7 @@ export default function App() {
                     style={{ '--spotlight-card-surface': 'var(--surface)', '--spotlight-card-border': 'var(--line)' } as CSSProperties}
                   >
                     <h3>
-                      {item.key === 'caladrius' && <span className="logo-mark card__logo" style={caladriusLogo} aria-hidden="true" />}
+                      <LogoMark tool={item.key} className="card__logo" />
                       {item.name}
                     </h3>
                     <p className="card__role">{item.role}</p>
