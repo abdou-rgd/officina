@@ -26,6 +26,12 @@ npm run build     # static files in dist/
   Font License 1.1. They are bundled into `dist/` and served by the site itself.
 - **Screenshots.** `public/screens/` holds three screenshots of the Caladrius desktop app, copied
   from `caladrius/docs/screens/` and converted to 1200 px wide WebP.
+- **Caladrius in the browser** (`/app/`, the "Try Caladrius" button). Not in this repository: the
+  workflow checks out Caladrius at the commit pinned by `CALADRIUS_REF` in `site.yml` and runs its
+  `cargo xtask web --out site/dist/app` (the egui interface compiled to WebAssembly, `apps/caladrius-web`).
+  Move `CALADRIUS_REF` on purpose when a new Caladrius should go online. To try it locally, from the
+  caladrius checkout: `cargo xtask web --out ../officina/site/public/app` (git-ignored), then
+  `npm run dev` and open `/app/`. The "Download" button points at the latest Caladrius release.
 - **Deployment.** `.github/workflows/site.yml` builds on every pull request touching `site/` and
   deploys to GitHub Pages on `main`. One-time setup in the repository: Settings → Pages → Source:
   GitHub Actions. The site is at <https://officina-dmpk.com/> (before the domain, it was at

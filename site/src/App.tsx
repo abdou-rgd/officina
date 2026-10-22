@@ -158,6 +158,23 @@ export default function App() {
               </h1>
               <p className="hero__intro">{t.hero.intro}</p>
 
+              <div className="cta">
+                <a className="btn btn--primary" href={`${import.meta.env.BASE_URL}app/`}>
+                  {t.hero.ctaTry}
+                </a>
+                <a className="btn" href={links.download}>
+                  {t.hero.ctaDownload}
+                </a>
+                <a className="btn btn--quiet" href={links.officina}>
+                  {t.hero.ctaCode}
+                </a>
+              </div>
+              <p className="cta__note">{t.hero.tryNote}</p>
+              <p className="cta__soon">
+                <LogoMark tool="apothicaire" size="sm" />
+                <span>{t.hero.soon}</span>
+              </p>
+
               <div className="pair">
                 {t.hero.pair.map(item => {
                   const key = item.key as 'caladrius' | 'apothicaire';
@@ -183,14 +200,6 @@ export default function App() {
                 })}
               </div>
 
-              <div className="cta">
-                <a className="btn btn--primary" href={links.officina}>
-                  {t.hero.ctaCode}
-                </a>
-                <a className="btn" href="#atelier">
-                  {t.hero.ctaStory}
-                </a>
-              </div>
               <p className="note">{t.hero.note}</p>
             </div>
 

@@ -11,6 +11,11 @@ on:
 permissions:
   contents: read
 
+env:
+  # The Caladrius commit (or tag) whose browser application is served under /app/. Move it on
+  # purpose, after the Caladrius change is merged; the page then shows exactly that version.
+  CALADRIUS_REF: 702e4b83dce59c89dbf04bfa7108eedd8d180bc8
+
 concurrency:
   group: pages-${{ github.ref }}
   cancel-in-progress: true
@@ -30,6 +35,24 @@ jobs:
           cache-dependency-path: site/package-lock.json
       - run: npm ci
       - run: npm run build
+      # Caladrius in the browser (/app/): built from the pinned commit by its own `cargo xtask web`.
+      - uses: actions/checkout@v4
+        with:
+          repository: abdou-rgd/caladrius
+          ref: ${{ env.CALADRIUS_REF }}
+          path: caladrius
+      - name: Install the Rust toolchain pinned by Caladrius
+        working-directory: caladrius
+        run: rustup toolchain install
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: caladrius
+      - uses: taiki-e/install-action@v2
+        with:
+          tool: wasm-bindgen@0.2.129
+      - name: Build Caladrius in the browser into dist/app
+        working-directory: caladrius
+        run: cargo xtask web --out "$GITHUB_WORKSPACE/site/dist/app"
       # A non-empty site/CNAME switches the build to the site's own domain (see site/README.md).
       - name: Copy CNAME
         run: if [ -s CNAME ]; then cp CNAME dist/CNAME; fi

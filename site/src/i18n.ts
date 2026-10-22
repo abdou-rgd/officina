@@ -20,6 +20,8 @@ export const links = {
   mcp: `${GH}/caladrius#mcp`,
   desktop: `${GH}/caladrius#desktop`,
   releases: `${GH}/caladrius/releases`,
+  // The desktop application of the latest Caladrius release (Windows and Linux archives).
+  download: `${GH}/caladrius/releases/latest`,
   layers: `${GH}/caladrius/blob/main/AGENTS.md`,
   gate: `${GH}/apothicaire/blob/main/gate.py`,
   specimen: `${GH}/officina/blob/main/site/specimen/make_specimen.py`,
@@ -76,8 +78,13 @@ const fr = {
         repoLabel: 'abdou-rgd/apothicaire'
       }
     ],
+    ctaTry: 'Essayer Caladrius',
+    ctaDownload: 'Télécharger Caladrius',
     ctaCode: 'Voir les dépôts',
-    ctaStory: 'La démarche et l’auteur',
+    // The browser build is apps/caladrius-web in the caladrius repository, served under /app/.
+    tryNote:
+      'Caladrius s’ouvre dans le navigateur, sans rien installer : quelques mégaoctets chargés une fois, puis tout se calcule dans la page. Vos fichiers n’en sortent pas. Mieux sur un ordinateur. Le téléchargement donne l’application de bureau, pour Windows et Linux.',
+    soon: 'Apothicaire : une version installable arrive bientôt. Le code, lui, est déjà public.',
     note: 'Prototype de recherche. Données synthétiques uniquement, sans statut réglementaire.'
   },
   specimen: {
@@ -398,8 +405,12 @@ const en: Dict = {
         repoLabel: 'abdou-rgd/apothicaire'
       }
     ],
+    ctaTry: 'Try Caladrius',
+    ctaDownload: 'Download Caladrius',
     ctaCode: 'Browse the repositories',
-    ctaStory: 'The approach and the author',
+    tryNote:
+      'Caladrius opens in your browser with nothing to install: a few megabytes, loaded once, and every number is computed inside the page. Your files stay on your computer. Best on a computer. The download is the desktop application, for Windows and Linux.',
+    soon: 'Apothicaire: an installable version is on its way. The code is already public.',
     note: 'Research prototype. Synthetic data only, with no regulatory status.'
   },
   specimen: {
