@@ -14,7 +14,7 @@ permissions:
 env:
   # The Caladrius commit (or tag) whose browser application is served under /app/. Move it on
   # purpose, after the Caladrius change is merged; the page then shows exactly that version.
-  CALADRIUS_REF: 5cc265deba90f95aab7aa40c37d328a73364c4af
+  CALADRIUS_REF: ddf2b38d994ae5939c72eec20565689c9570eca5
 
 concurrency:
   group: pages-${{ github.ref }}
