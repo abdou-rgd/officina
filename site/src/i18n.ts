@@ -317,7 +317,7 @@ const fr = {
     kicker: 'Chapitre IV · L’Atelier · Démarche, méthode et feuille de route',
     title: 'Pourquoi j’ai bâti Officina, et comment l’atelier fonctionne.',
     authorSubtitle: 'La démarche et l’auteur',
-    authorName: 'Abdallah Ragued',
+    authorName: 'Abdallah',
     authorRole: 'M2 Modélisation pharmacocinétique (Université Paris Cité) · M2 Health Data Science (Université Paris-Saclay)',
     authorParagraphs: [
       'Mon cheminement vers la pharmacométrie n’a pas suivi une ligne droite (une licence d’économie, un M1 de santé publique avec un stage de biostatistique à l’IHU ICAN de la Pitié-Salpêtrière, un M2 Health Data Science à Paris-Saclay, et aujourd’hui le M2 Modélisation pharmacocinétique à l’Université Paris Cité), mais il se lit après coup comme une seule question abordée sous trois angles : comment mesurer, modéliser et expliquer proprement l’effet d’un médicament.',
@@ -639,7 +639,7 @@ const en: Dict = {
     kicker: 'Chapter IV · The Workshop · Approach, method and roadmap',
     title: 'Why I built Officina, and how the workshop is run.',
     authorSubtitle: 'The approach and the author',
-    authorName: 'Abdallah Ragued',
+    authorName: 'Abdallah',
     authorRole: 'M2 Pharmacokinetic Modelling (Université Paris Cité) · M2 Health Data Science (Université Paris-Saclay)',
     authorParagraphs: [
       'My path to pharmacometrics was not a straight line (a bachelor’s degree in economics, a first master’s year in public health with a biostatistics internship at IHU ICAN at Pitié-Salpêtrière, an M2 in Health Data Science at Université Paris-Saclay, and now the M2 in Pharmacokinetic Modelling at Université Paris Cité), but in retrospect it reads as one question approached from three angles: how to measure, model and explain a clinical effect properly.',
