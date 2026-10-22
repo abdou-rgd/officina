@@ -11,3 +11,6 @@ Thumbs.db
 # raw agent transcripts, third-party PDFs and private material stay out of this repository
 private/
 sources/
+
+# built from the caladrius repository by `cargo xtask web` (see site/README.md)
+site/public/app/
