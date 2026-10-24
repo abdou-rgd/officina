@@ -207,6 +207,11 @@ em {
 
 /* ---------- Top bar ---------- */
 
+/* The Piixpal mascots' overlay (src/Mascots.tsx) passes under the top bar. */
+:root {
+  --piix-z: 10;
+}
+
 .topbar {
   position: sticky;
   top: 0;

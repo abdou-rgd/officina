@@ -1,6 +1,7 @@
 import { useRef, type CSSProperties, type ReactNode } from 'react';
 import Doors from './Doors';
 import GateFlow from './GateFlow';
+import Mascots from './Mascots';
 import Specimen from './Specimen';
 import { dict, links, positioning, type Lang } from './i18n';
 import { useActiveSection, useReveal } from './motion';
@@ -480,6 +481,7 @@ export default function App() {
           <p className="footer__disclaimer">{t.footer.disclaimer}</p>
         </div>
       </footer>
+      <Mascots />
     </>
   );
 }
