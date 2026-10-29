@@ -15,7 +15,7 @@ export const links = {
   method: `${GH}/officina/blob/main/METHOD.md`,
   validation: `${GH}/caladrius/blob/main/docs/validation.md`,
   conformance: `${GH}/caladrius/blob/main/docs/conformance.md`,
-  whyRust: `${GH}/caladrius#in-plain-words`,
+  whyRust: `${GH}/caladrius/blob/main/docs/history.md#in-plain-words-as-it-was-written-on-2026-10-29`,
   usage: `${GH}/caladrius#usage`,
   mcp: `${GH}/caladrius#mcp`,
   desktop: `${GH}/caladrius#desktop`,
@@ -183,7 +183,7 @@ const fr = {
         n: '03',
         title: 'Une erreur lisible plutôt qu’un plantage (≈ 9 ms sur Theoph)',
         body: 'Le code ne contient aucun bloc unsafe et le linter interdit unwrap et panic! dans les briques de calcul : un CSV mal formé ou une demi-vie non estimable renvoie un motif explicite au lieu de planter. L’analyse complète des 12 sujets de Theoph prend environ 9 ms, démarrage compris.',
-        proof: 'Pourquoi Rust (README)',
+        proof: 'Pourquoi Rust (historique de Caladrius)',
         href: 'whyRust'
       },
       {
@@ -509,7 +509,7 @@ const en: Dict = {
         n: '03',
         title: 'A readable error instead of a crash (≈ 9 ms on Theoph)',
         body: 'The code contains no unsafe block, and the linter forbids unwrap and panic! across the numerical crates: a malformed CSV or a non-estimable half-life returns an explicit reason instead of a crash. Running NCA on all 12 subjects of Theoph takes about 9 ms, startup included.',
-        proof: 'Why Rust (README)',
+        proof: 'Why Rust (Caladrius history)',
         href: 'whyRust'
       },
       {
