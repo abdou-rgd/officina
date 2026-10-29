@@ -1,8 +1,9 @@
 # Officina website
 
 The project's public page: one static monograph in four chapters, French by default with an English
-switch, light and dark themes following the system. Built with Vite, React and TypeScript, with zero
-third-party UI or animation libraries. No cookies, no trackers, no request to another site.
+switch, light and dark themes following the system. Built with Vite, React and TypeScript, with no
+third-party UI library; the one animation library is Piixpal, for the two mascots (see below), served
+by the site itself. No cookies, no trackers, no request to another site.
 
 ```bash
 npm ci
@@ -24,6 +25,14 @@ npm run build     # static files in dist/
   is skipped when the system asks for reduced motion.
 - **Fonts.** Newsreader and IBM Plex Sans and Mono, from the Fontsource packages, under the SIL Open
   Font License 1.1. They are bundled into `dist/` and served by the site itself.
+- **Mascots.** Two pixel-art pals drawn from the logos: the Caladrius bird perches on the hero figure
+  and flies off when the cursor comes close; the Apothicaire mortar, given eyes and a smile, waddles
+  along the rule under Chapter III's introduction. They run on [Piixpal](https://github.com/diiviikk5/Piixpal)
+  0.4.0 (MIT): `public/piixpal/` holds `dist/core.min.js`, `dist/c/pip.min.js` (the `perch`
+  behaviour) and `dist/c/bitbug.min.js` (the `crawl` behaviour) copied unchanged from the npm package
+  `piixpal@0.4.0`, its `LICENSE`, and `officina-pals.js`, the two sprites as grids of characters.
+  `src/Mascots.tsx` loads these four files after the page and places the pals; nothing is loaded
+  when the system asks for reduced motion. About 64 KB in all.
 - **Screenshots.** `public/screens/` holds three screenshots of the Caladrius desktop app, copied
   from `caladrius/docs/screens/` and converted to 1200 px wide WebP.
 - **Caladrius in the browser** (`/app/`, the "Try Caladrius" button). Not in this repository: the
