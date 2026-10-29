@@ -46,7 +46,7 @@ Maturity: imaging kinetics mature but noise-naive (Logan has known noise-induced
 Maturity: no conformal work on population PK or MIPD found; coverage under dosing histories and per-patient (conditional) validity are open.
 
 ## 6. Market and open source
-- Certara FY2025: revenue $418.8M, software $183.3M (Phoenix, Simcyp). https://www.sec.gov/Archives/edgar/data/1827090/000182709026000011/cert-20251231.htm
+- The leading commercial PK software vendor, FY2025 annual report: revenue $418.8M, software $183.3M. https://www.sec.gov/Archives/edgar/data/1827090/000182709026000011/cert-20251231.htm
 - Simulations Plus bought Lixoft (Monolix) April 2020, about $6M; Monolix about 20% of software revenue. https://www.simulations-plus.com/resource/simulations-plus-acquires-lixoft-expanding-modeling-software-offerings-and-broadening-presence-in-europe/
 - Pumas-AI (Julia; DeepNLME neural-embedded models). https://tutorials.pumas.ai/html/DeepPumas/01-getting_started.html
 - InsightRX (claims over 1,000 hospital sites; vendor claim) https://blog.insight-rx.com/press-releases/insightrx-surpasses-1000-customer-sites ; DoseMe (Bayesian dosing; acquired by Fairlong 2023) https://www.cbinsights.com/company/doseme
