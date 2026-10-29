@@ -113,7 +113,7 @@ const fr = {
     title: 'Un moteur de calcul à livres ouverts. Aucune IA à l’intérieur.',
     intro:
       'Dans les bestiaires médiévaux, le caladrius est l’oiseau blanc qui se pose au chevet du malade et regarde le mal en face. Le moteur qui porte son nom exécute les calculs classiques de la pharmacocinétique, comme le ferait un package R : il ne devine rien, il calcule. Même entrée, même version, même nombre. Il s’utilise seul, sans Apothicaire.',
-    specTitle: 'Périmètre mathématique (v0.2.0)',
+    specTitle: 'Périmètre mathématique (v0.3.2)',
     spec: [
       {
         k: 'Analyse non compartimentale',
@@ -138,7 +138,7 @@ const fr = {
     ],
     doorsTitle: 'Une seule API, trois portes',
     doorsIntro:
-      'Les 21 commandes (nca.run, fit.run, model.simulate, analysis.compare…) ont un identifiant stable et un schéma JSON strict. L’application de bureau, le terminal et le serveur MCP appellent exactement les mêmes : un agent obtient les mêmes nombres qu’un humain, unités comprises.',
+      'Les 25 commandes (nca.run, fit.run, model.simulate, analysis.compare…) ont un identifiant stable et un schéma JSON strict. L’application de bureau, la page dans le navigateur, le terminal et le serveur MCP appellent exactement les mêmes : un agent obtient les mêmes nombres qu’un humain, unités comprises.',
     doors: {
       desktop: 'Interface de bureau',
       cli: 'Ligne de commande',
@@ -167,15 +167,15 @@ const fr = {
     pillars: [
       {
         n: '01',
-        title: 'Une application autonome de 8 Mo, pas une bibliothèque',
-        body: 'Une seule archive (8 Mo sous Windows, 12 Mo sous Linux) contient l’interface de bureau, le terminal et le serveur MCP : ni R ni packages à installer, aucune ligne de code à écrire pour lancer une analyse. Le même code compile en WebAssembly pour le navigateur.',
-        proof: 'Binaires v0.2.0 publiés',
+        title: 'Une application autonome de 9 Mo, pas une bibliothèque',
+        body: 'Une seule archive (9 Mo sous Windows, 12 Mo sous Linux) contient l’interface de bureau, le terminal et le serveur MCP : ni R ni packages à installer, aucune ligne de code à écrire pour lancer une analyse. Le même code compile en WebAssembly : la même interface tourne dans le navigateur.',
+        proof: 'Binaires v0.3.2 publiés',
         href: 'releases'
       },
       {
         n: '02',
         title: 'Un contrat typé qui interdit le bricolage',
-        body: 'Au lieu de laisser un modèle de langage écrire du code R à la volée, Caladrius expose 21 commandes fermées dont les entrées, les sorties et les unités sont fixées par schéma. L’humain dans sa fenêtre et l’agent par MCP passent par la même porte.',
+        body: 'Au lieu de laisser un modèle de langage écrire du code R à la volée, Caladrius expose 25 commandes fermées dont les entrées, les sorties et les unités sont fixées par schéma. L’humain dans sa fenêtre et l’agent par MCP passent par la même porte.',
         proof: 'Documentation MCP',
         href: 'mcp'
       },
@@ -242,14 +242,14 @@ const fr = {
       {
         tag: '02 · La porte des nombres (Python, sans IA)',
         title: 'Contrôle déterministe par gate.py',
-        body: 'Placée entre le modèle et l’écran, une porte écrite en Python pur inspecte chaque réponse et rejette tout nombre mesuré qui ne figure ni dans les sorties d’outils de Caladrius ni dans votre propre message.',
+        body: 'Placée entre le modèle et l’écran, une porte écrite en Python pur inspecte chaque réponse et signale tout nombre mesuré qui ne figure ni dans les sorties d’outils de Caladrius ni dans votre propre message : le modèle régénère une fois sa réponse, et un nombre encore non tracé reste marqué à l’écran.',
         href: 'gate',
         linkLabel: 'Lire gate.py'
       },
       {
         tag: '03 · Le registre (OptChat)',
         title: 'Mémoire en arbre où rien n’est effacé',
-        body: 'Une étude compte vite des dizaines de tours qui saturent 12 Go de mémoire vidéo. D’après une idée de Victor Taelin, OptChat conserve tout sur disque et montre au modèle les messages récents mot pour mot et les plus anciens fusionnés en arbre de résumés (8 faits sur 8 retrouvés après 32 tours).',
+        body: 'Une étude compte vite des dizaines de tours qui saturent 12 Go de mémoire vidéo. D’après une idée de Victor Taelin, OptChat conserve tout sur disque et montre au modèle les messages récents mot pour mot et les plus anciens fusionnés en arbre de résumés (8, 7 et 8 faits plantés sur 8 retrouvés après 32 tours, sur trois runs).',
         href: 'optchat',
         linkLabel: 'abdou-rgd/optchat'
       }
@@ -289,7 +289,7 @@ const fr = {
       { value: '8 s', label: 'par tour en moyenne, en local sur une carte graphique de 12 Go' }
     ],
     benchCaveat:
-      'Réserve méthodologique : ces chiffres sont mesurés in-sample, sur le jeu de 25 exercices qui a servi à mettre au point l’outil. Ce sont des comptes, et non des garanties. Un second contrôle par oracle, qui vérifie que le nombre cité est celui du paramètre demandé, valide 166 / 175 tours. La porte actuelle ne détecte pas un bon nombre attaché au mauvais paramètre ; un jeu de test gelé hors échantillon et la Porte v2 (rendu typé) répondent à cette limite.',
+      'Réserve méthodologique : ces chiffres sont mesurés in-sample, sur le jeu de 25 exercices qui a servi à mettre au point l’outil. Ce sont des comptes, et non des garanties. Un second contrôle par oracle, qui vérifie que le nombre cité est celui du paramètre demandé, valide 166 / 175 tours. La porte actuelle ne détecte pas un bon nombre attaché au mauvais paramètre ; un jeu de test gelé hors échantillon est en préparation pour la mesurer, et la Porte v2 (rendu typé) a été construite pour la lever.',
     benchLink: 'Rapport complet du benchmark',
     gateLink: 'Lire gate.py',
     localTitle: 'Pourquoi un modèle local sur 12 Go, plutôt qu’un grand modèle par abonnement ?',
@@ -343,7 +343,7 @@ const fr = {
       },
       {
         title: '2 · Porte des nombres v2 (rendu typé)',
-        body: 'Au lieu d’écrire un chiffre en texte libre, le modèle émet une référence ({{call.param}}) et un code déterministe injecte la valeur, son signe, son unité et le nom de la grandeur directement depuis le schéma MCP de Caladrius.'
+        body: 'Au lieu d’écrire un chiffre en texte libre, le modèle émet une référence ({{call.param}}) et un code déterministe injecte la valeur, son signe, son unité et le nom de la grandeur directement depuis le schéma MCP de Caladrius. Construite et mesurée in-sample le 21 octobre : 562 / 600 tours corrects contre 583 / 600 pour la porte actuelle, qui reste donc celle de la démonstration.'
       },
       {
         title: '3 · Kit de validation ouvert & PAGE 2027',
@@ -351,7 +351,7 @@ const fr = {
       },
       {
         title: '4 · Caladrius dans le navigateur & extension PK/PD',
-        body: 'Mettre en ligne la version WebAssembly du moteur pour que les étudiants et chercheurs vérifient un profil sans rien installer, avant d’élargir pas à pas le périmètre mathématique.'
+        body: 'La version WebAssembly est en ligne (/app/) : étudiants et chercheurs vérifient un profil sans rien installer. La suite : élargir pas à pas le périmètre mathématique.'
       }
     ]
   },
@@ -439,7 +439,7 @@ const en: Dict = {
     title: 'An open-book calculation engine. No AI inside.',
     intro:
       'In medieval bestiaries, the caladrius is the white bird that sits by the patient’s bed and looks the illness in the eye. The engine that bears its name performs the standard calculations of pharmacokinetics, just as an R package would: it guesses nothing, it computes. Same input, same version, same number. It works on its own, without Apothicaire.',
-    specTitle: 'Mathematical scope (v0.2.0)',
+    specTitle: 'Mathematical scope (v0.3.2)',
     spec: [
       {
         k: 'Non-compartmental analysis',
@@ -464,7 +464,7 @@ const en: Dict = {
     ],
     doorsTitle: 'One API, three doors',
     doorsIntro:
-      'All 21 commands (nca.run, fit.run, model.simulate, analysis.compare…) have a stable id and a strict JSON schema. The desktop window, the terminal and the MCP server call the exact same functions: an agent gets the same numbers as a person, units included.',
+      'All 25 commands (nca.run, fit.run, model.simulate, analysis.compare…) have a stable id and a strict JSON schema. The desktop window, the browser page, the terminal and the MCP server call the exact same functions: an agent gets the same numbers as a person, units included.',
     doors: {
       desktop: 'Desktop interface',
       cli: 'Command line',
@@ -493,9 +493,9 @@ const en: Dict = {
     pillars: [
       {
         n: '01',
-        title: 'An 8 MB self-contained application, not a library',
-        body: 'One archive (8 MB on Windows, 12 MB on Linux) holds the desktop application, the command line and the MCP server: no R runtime or packages to install, no code to write before running an analysis. The same code compiles to WebAssembly.',
-        proof: 'Published v0.2.0 binaries',
+        title: 'A 9 MB self-contained application, not a library',
+        body: 'One archive (9 MB on Windows, 12 MB on Linux) holds the desktop application, the command line and the MCP server: no R runtime or packages to install, no code to write before running an analysis. The same code compiles to WebAssembly: the same interface runs in the browser.',
+        proof: 'Published v0.3.2 binaries',
         href: 'releases'
       },
       {
@@ -568,14 +568,14 @@ const en: Dict = {
       {
         tag: '02 · The number gate (Python, no AI)',
         title: 'Deterministic check via gate.py',
-        body: 'Standing between the model and the screen, a plain Python gate inspects every draft and rejects any measured number that appears neither in Caladrius’s tool outputs nor in your own message.',
+        body: 'Standing between the model and the screen, a plain Python gate inspects every draft and flags any measured number that appears neither in Caladrius’s tool outputs nor in your own message: the model regenerates its answer once, and a number still untraced stays marked on screen.',
         href: 'gate',
         linkLabel: 'Read gate.py'
       },
       {
         tag: '03 · The ledger (OptChat)',
         title: 'Tree-structured memory where nothing is erased',
-        body: 'A study conversation quickly grows past what 12 GB of video memory can hold. Following an idea by Victor Taelin, OptChat keeps the full history on disk and shows the model recent messages verbatim and older ones merged into a binary tree of summaries (8 of 8 planted facts recalled after 32 turns).',
+        body: 'A study conversation quickly grows past what 12 GB of video memory can hold. Following an idea by Victor Taelin, OptChat keeps the full history on disk and shows the model recent messages verbatim and older ones merged into a binary tree of summaries (8, 7 and 8 of 8 planted facts recalled after 32 turns, over three runs).',
         href: 'optchat',
         linkLabel: 'abdou-rgd/optchat'
       }
@@ -615,7 +615,7 @@ const en: Dict = {
       { value: '8 s', label: 'per turn on average, locally on a single 12 GB graphics card' }
     ],
     benchCaveat:
-      'Methodological caveat: these figures are measured in-sample, on the 25 exercises used to develop the tool. They are counts, not guarantees. A second, oracle check, which verifies that each quoted number belongs to the parameter asked for, passes 166 / 175 turns. The current gate cannot catch a right number attached to the wrong parameter; a frozen out-of-sample test set and Gate v2 (typed rendering) address that limit.',
+      'Methodological caveat: these figures are measured in-sample, on the 25 exercises used to develop the tool. They are counts, not guarantees. A second, oracle check, which verifies that each quoted number belongs to the parameter asked for, passes 166 / 175 turns. The current gate cannot catch a right number attached to the wrong parameter; a frozen out-of-sample test set is being prepared to measure it, and Gate v2 (typed rendering) was built to remove it.',
     benchLink: 'Full benchmark report',
     gateLink: 'Read gate.py',
     localTitle: 'Why a local model on 12 GB, rather than a large subscription model?',
@@ -669,7 +669,7 @@ const en: Dict = {
       },
       {
         title: '2 · Number gate v2 (typed rendering)',
-        body: 'Instead of writing a number in free text, the model emits a reference ({{call.param}}) and deterministic code injects the value, its sign, its unit and the quantity name straight from Caladrius’s MCP schema.'
+        body: 'Instead of writing a number in free text, the model emits a reference ({{call.param}}) and deterministic code injects the value, its sign, its unit and the quantity name straight from Caladrius’s MCP schema. Built and measured in-sample on 21 October: 562 / 600 turns correct against 583 / 600 for the current gate, which therefore stays the gate of the demonstration.'
       },
       {
         title: '3 · Open validation kit & PAGE 2027',
@@ -677,7 +677,7 @@ const en: Dict = {
       },
       {
         title: '4 · Caladrius in the browser & PK/PD expansion',
-        body: 'Put the WebAssembly build of the engine online so students and researchers can check a profile with zero installation, before expanding the mathematical scope step by step.'
+        body: 'The WebAssembly build is online (/app/): students and researchers check a profile with zero installation. Next: expand the mathematical scope step by step.'
       }
     ]
   },
