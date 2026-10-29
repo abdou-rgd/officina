@@ -2,19 +2,20 @@
 
 Officina is written by AI coding agents. The human, Abdou, answers questions, reviews and decides what is published. That makes the process part of the evidence: a reader who doubts a number should be able to see who produced it, who tried to break it, and what was left unverified. This page describes the process as it actually runs; where a file in one of the repositories is the source of truth, it is linked rather than copied.
 
-Contents: [1. The contract](#1-the-contract) · [2. The board](#2-the-board) · [3. Roles](#3-roles) · [4. One card per task](#4-one-card-per-task) · [5. Independent review](#5-independent-review) · [6. The audit of 14 October](#6-the-audit-of-14-october) · [7. Push and publication rules](#7-push-and-publication-rules) · [8. Limits of the method](#8-limits-of-the-method)
+Contents: [1. The contract](#1-the-contract) · [2. The board](#2-the-board) · [3. Roles](#3-roles) · [4. Cards and iterations](#4-cards-and-iterations) · [5. Independent review](#5-independent-review) · [6. The audit of 14 October](#6-the-audit-of-14-october) · [7. Push and publication rules](#7-push-and-publication-rules) · [8. Limits of the method](#8-limits-of-the-method)
 
 ## 1. The contract
 
 [`AGENTS.md`](https://github.com/abdou-rgd/caladrius/blob/main/AGENTS.md) in the Caladrius repository is read by every agent before it does anything, and wins over any instruction that conflicts with it. It fixes:
 
+- **The motto**, "we should be more ambitious", with its limit: ambitious in what we build and test, never in what we claim. Every report ends with one bolder next step, which the human decides on; "no speculative work" still holds.
 - **Scope**, with an explicit out-of-scope list (population modelling, bioequivalence, IVIVC): "do not start them, not even to prepare".
 - **Golden rules.** Clean room (reproduce behaviour, never code); tests are the gate and conformance floors only go up; engine first, everything is a command with a stable id reachable from the UI, the CLI and the MCP server; nothing baked into the core; never crash (no `unwrap`, `panic!` or input-derived indexing outside tests, enforced by deny lints); thin data-driven UI; wasm never broken.
 - **What the human does**, as a closed list (section 2). Everything else is the agents' job, and a question for the human goes in a file, together with the decision taken meanwhile, so that work never blocks.
 - **Oracle and tolerances** (section 5). Expected values come from independent sources (PKNCA in R, R `nls`, closed forms in 256-bit arithmetic, a second naive implementation). Tolerances are defined once and never loosened inside a test. A gap beyond tolerance is a documented method difference, not a reason to widen it.
 - **Budget rules** (section 10): always resumable after each task, small tasks, no loops (three failed attempts and the card becomes `blocked`), no speculative work, no paid service.
 
-The contract is itself under test: `cargo xtask lint` and `cargo xtask review` run in CI and check, among other things, forbidden names, leaks of the private folder, lint headers, tolerances defined once and board hygiene. Their first runs found real inconsistencies in the board, which were corrected.
+The contract is itself under test: `cargo xtask lint` and `cargo xtask review` run in CI and check, among other things, forbidden names, leaks of the private folder, lint headers, tolerances defined once, board hygiene, the sections of each iteration card, and the agent files (at most 200 lines each, with the model and effort that the contract tabulates). Their first runs found real inconsistencies in the board, which were corrected.
 
 ## 2. The board
 
@@ -33,24 +34,27 @@ One file per task and per message is what stops two agents from editing the same
 
 ## 3. Roles
 
-Roles are defined in [`.claude/agents/`](https://github.com/abdou-rgd/caladrius/tree/main/.claude/agents), with the model in the front matter, and tabulated in section 8 of `AGENTS.md`. The point of the split is separation of duties:
+Roles are defined in [`.claude/agents/`](https://github.com/abdou-rgd/caladrius/tree/main/.claude/agents), one short file each (at most 200 lines, in the same five parts: who the agent is, what the motto means for it, what it does, how, and its report), with the model and the reasoning effort in the front matter. Section 8 of `AGENTS.md` tabulates them with the reason for each choice. The point of the split is separation of duties, and the models follow two ideas: the reviewer is a stronger model than the authors it checks, and the most expensive model reads the least.
 
-- **orchestrator** (the most capable model available): splits work, writes cards, reads reports and the board, decides. It does not write code and does not read large files.
-- **engine** (Opus): everything that produces a number (`caladrius-nca`, `-models`, `-fit`).
-- **oracle** (Sonnet): the ground truth, the R scripts and the tests that must fail first. *Whoever writes an oracle test does not write the code under test*, and the oracle never edits the engine to make a test pass.
-- **reader** (Sonnet): the only agent allowed to read the public documentation of the reference software, which is not named in the code or docs. It writes behaviour specifications in its own words and formulas, each rule tagged `confirmed by oracle`, `documented, untested` or `assumed`. Implementers read only `specs/` and the oracle. This is the clean room.
-- **interface** (Sonnet): project model, command registry, UI, CLI, MCP server; never numerical code.
-- **reviewer** (Sonnet): reviews a diff it did not see being written and hunts panic paths, loosened tolerances, tests that cannot fail and clean-room violations. It does not modify the reviewed code. Every change to the three numerical crates goes through it before a card is marked done.
-- **janitor** (Haiku): formatting, renames, board housekeeping; takes no decision.
+- **orchestrator** (Opus, maximum effort): plans the iteration, writes cards, delegates, integrates, keeps the board and re-runs the verification itself, because a subagent's report is a claim, not a proof. It does not write code and does not read large files. It holds the longest context, which is why it does not run on the most expensive model.
+- **engine** (Opus, high effort): everything that produces a number (`caladrius-nca`, `-models`, `-fit`).
+- **oracle** (Sonnet, high): the ground truth, the R scripts and the tests that must fail first. *Whoever writes an oracle test does not write the code under test*, and the oracle never edits the engine to make a test pass. It is also a different model from the engine it checks.
+- **reader** (Sonnet, high): the only agent allowed to read the public documentation of the reference software, which is not named in the code or docs. It writes behaviour specifications in its own words and formulas, each rule tagged `confirmed by oracle`, `documented, untested` or `assumed`. Implementers read only `specs/` and the oracle. This is the clean room.
+- **interface** (Sonnet, high): workspace and developer tooling, project model, command registry, UI, CLI, MCP server; never numerical code.
+- **reviewer** (Fable, high): reviews a diff it did not see being written and hunts panic paths, loosened tolerances, tests that cannot fail, machine-dependent numbers, clean-room violations and claims beyond the evidence. It does not modify the reviewed code. Every change to the three numerical crates goes through it before a card is marked done, and it audits the whole diff of each iteration. It reasons hardest and wrote none of the code; to keep within the budget it gets a diff and its card, never a whole crate, and one Fable agent runs at a time.
+- **janitor** (Haiku, low): formatting, renames, board housekeeping; takes no decision.
+- **onizuka** (Opus, high): the human's teacher. It explains any part of Officina in French from the real code, citing `file:line` and the status of each statement, and writes the learning page of each iteration. It never edits a repository.
 - **contributor-dsh**: a second, independent coding agent (DeepSeek, run headless through its own harness) that takes cards on the same terms as anyone else. Its first cards ([T-043](https://github.com/abdou-rgd/caladrius/blob/main/board/tasks/T-043.md), T-045, T-048: release workflow, validation document, checksum line endings) were delivered on a branch, not pushed, and merged only after the orchestrator read the diff.
 
-Parallel work follows two rules: two agents never touch the same crate, and a new module per feature instead of growing a shared file.
+Parallel work follows three rules: at most two agents at a time, never two on the same crate or file, and a new module per feature instead of growing a shared file.
 
-## 4. One card per task
+## 4. Cards and iterations
 
-A card states a **goal**, the **allowed files** (nothing else may change), a **verifiable completion criterion** (a command and its expected result), dependencies, a state (`todo`, `in progress`, `to review`, `done`, `blocked`) and a dated thread of notes. A subagent gets exactly one card and returns a report of at most ten lines: what was done, the numbers, what is still open.
+A card states a **goal**, the **allowed files** (nothing else may change), a **verifiable completion criterion** (a command and its expected result), dependencies, a state (`todo`, `in progress`, `to review`, `done`, `blocked`) and a dated thread of notes. A subagent gets exactly one card and returns a report of at most ten lines: what was done, the numbers, what is still open, and one bolder next step.
 
 Finishing a card means the tree builds, tests are green, `cargo clippy -D warnings` and `cargo xtask layers` pass, `cargo xtask conformance` is regenerated if a number changed (never edited by hand), the card is updated, `LOG.md` has an entry, and the commit message starts with the task id. Review findings are fixed or recorded on the card before it closes.
+
+From the end of October 2026, work is planned in **iterations**, one per session. An iteration is itself a card on the board, so there is no second planning file. Its brief is written before any work: goal, deliverables, the published figures it may change, done criteria, and a plan by waves of cards. The independent cards of a wave run in parallel; the orchestrator integrates them and runs the full verification itself; the reviewer audits the whole diff. The outcome goes into the same card, with denominators, lessons and a bolder next step that the human decides on. Onizuka then writes a learning page in French for the human, linked from the card. `cargo xtask lint` checks that the brief and the outcome are there.
 
 ## 5. Independent review
 
